@@ -14,6 +14,7 @@
 		A12879B52777A64E00584FEC /* LocationsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12879B42777A64E00584FEC /* LocationsDataService.swift */; };
 		A12879B72777A6A200584FEC /* LocationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12879B62777A6A200584FEC /* LocationsView.swift */; };
 		A12879BA2777A6B700584FEC /* LocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12879B92777A6B700584FEC /* LocationsViewModel.swift */; };
+		A12879BC2777B05800584FEC /* LocationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12879BB2777B05800584FEC /* LocationsListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		A12879B42777A64E00584FEC /* LocationsDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsDataService.swift; sourceTree = "<group>"; };
 		A12879B62777A6A200584FEC /* LocationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsView.swift; sourceTree = "<group>"; };
 		A12879B92777A6B700584FEC /* LocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewModel.swift; sourceTree = "<group>"; };
+		A12879BB2777B05800584FEC /* LocationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 		A12879B02777A57100584FEC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A12879BB2777B05800584FEC /* LocationsListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 				A12879B52777A64E00584FEC /* LocationsDataService.swift in Sources */,
 				A12879BA2777A6B700584FEC /* LocationsViewModel.swift in Sources */,
 				A12879B72777A6A200584FEC /* LocationsView.swift in Sources */,
+				A12879BC2777B05800584FEC /* LocationsListView.swift in Sources */,
 				A12879B22777A59100584FEC /* Location.swift in Sources */,
 				A128799F2777A46300584FEC /* LandmarkerApp.swift in Sources */,
 			);
