@@ -14,15 +14,28 @@ struct LocationsView: View {
     
     var body: some View {
         ZStack{
-            Map(coordinateRegion: $vm.mapRegion)
+            MapView(coordinate: vm.mapLocation.coordinates, is3DEnabled: true)
                 .ignoresSafeArea()
-            
             
             VStack(spacing: 0){
                 header
                     .padding()
                 
                 Spacer()
+                
+                ZStack{
+                    //Used ForEach to alloe for the transition to happend when the current location is changed
+                    ForEach(vm.locations){ location in
+                        
+                        //Display the preview of only the current location
+                        if vm.mapLocation == location {
+                            LocationPreviewView(location: location, vm: vm)
+                                .shadow(color: Color.black.opacity(0.3), radius: 20)
+                                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+                        }
+                    }
+                }
+                
             }
         }
     }
@@ -49,6 +62,7 @@ extension LocationsView{
                     }
                 }
             
+            //drop down menu of the locations
             if vm.isLocationListShown {
                 LocationsListView()
             }
