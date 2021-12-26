@@ -17,8 +17,8 @@ struct LocationsListView: View {
                     vm.showNextLocation(location: location)
                 } label: {
                     listRowView(location: location)
+                        .background(Color.clear)
                         .padding(.vertical, 4)
-                        .listRowBackground(Color.clear)
 
                 }
 

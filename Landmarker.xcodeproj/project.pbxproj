@@ -15,6 +15,9 @@
 		A12879B72777A6A200584FEC /* LocationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12879B62777A6A200584FEC /* LocationsView.swift */; };
 		A12879BA2777A6B700584FEC /* LocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12879B92777A6B700584FEC /* LocationsViewModel.swift */; };
 		A12879BC2777B05800584FEC /* LocationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12879BB2777B05800584FEC /* LocationsListView.swift */; };
+		A12879BF2777BA9000584FEC /* LocationPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12879BE2777BA9000584FEC /* LocationPreviewView.swift */; };
+		A1287FF527786DB0002E414B /* LocationPrevewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1287FF427786DB0002E414B /* LocationPrevewViewModel.swift */; };
+		A18951832778CFFE00BC81A8 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18951822778CFFE00BC81A8 /* MapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +30,9 @@
 		A12879B62777A6A200584FEC /* LocationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsView.swift; sourceTree = "<group>"; };
 		A12879B92777A6B700584FEC /* LocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewModel.swift; sourceTree = "<group>"; };
 		A12879BB2777B05800584FEC /* LocationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListView.swift; sourceTree = "<group>"; };
+		A12879BE2777BA9000584FEC /* LocationPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPreviewView.swift; sourceTree = "<group>"; };
+		A1287FF427786DB0002E414B /* LocationPrevewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPrevewViewModel.swift; sourceTree = "<group>"; };
+		A18951822778CFFE00BC81A8 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +70,7 @@
 				A12879AF2777A56300584FEC /* Screens */,
 				A12879B02777A57100584FEC /* Views */,
 				A12879B32777A63B00584FEC /* DataServices */,
+				A18951812778CFE500BC81A8 /* UIKitComponents */,
 				A12879AC2777A4D600584FEC /* Assets.xcassets */,
 				A12879A42777A46500584FEC /* Preview Content */,
 			);
@@ -90,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				A12879B82777A6A900584FEC /* LocationsView */,
+				A12879BD2777BA6F00584FEC /* LocationPrevewView */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -117,6 +125,23 @@
 				A12879B92777A6B700584FEC /* LocationsViewModel.swift */,
 			);
 			path = LocationsView;
+			sourceTree = "<group>";
+		};
+		A12879BD2777BA6F00584FEC /* LocationPrevewView */ = {
+			isa = PBXGroup;
+			children = (
+				A12879BE2777BA9000584FEC /* LocationPreviewView.swift */,
+				A1287FF427786DB0002E414B /* LocationPrevewViewModel.swift */,
+			);
+			path = LocationPrevewView;
+			sourceTree = "<group>";
+		};
+		A18951812778CFE500BC81A8 /* UIKitComponents */ = {
+			isa = PBXGroup;
+			children = (
+				A18951822778CFFE00BC81A8 /* MapView.swift */,
+			);
+			path = UIKitComponents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,11 +214,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1287FF527786DB0002E414B /* LocationPrevewViewModel.swift in Sources */,
 				A12879B52777A64E00584FEC /* LocationsDataService.swift in Sources */,
 				A12879BA2777A6B700584FEC /* LocationsViewModel.swift in Sources */,
 				A12879B72777A6A200584FEC /* LocationsView.swift in Sources */,
 				A12879BC2777B05800584FEC /* LocationsListView.swift in Sources */,
+				A12879BF2777BA9000584FEC /* LocationPreviewView.swift in Sources */,
 				A12879B22777A59100584FEC /* Location.swift in Sources */,
+				A18951832778CFFE00BC81A8 /* MapView.swift in Sources */,
 				A128799F2777A46300584FEC /* LandmarkerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
