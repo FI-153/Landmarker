@@ -30,7 +30,12 @@ struct LocationPreviewView: View {
             RoundedRectangle(cornerRadius: 10)
                 .fill(.ultraThinMaterial)
                 .offset(y: 65)
+                .overlay(alignment: .topTrailing, content: {
+                    Toggle3DButtonView(is3DShown: $vm.is3DShown)
+                        .padding(.horizontal)
+                })
         )
+        .frame(maxHeight: 250)
         .cornerRadius(10)
         .padding()
     }

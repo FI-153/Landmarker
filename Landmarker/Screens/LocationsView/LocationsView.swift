@@ -14,7 +14,7 @@ struct LocationsView: View {
     
     var body: some View {
         ZStack{
-            MapView(coordinate: vm.mapLocation.coordinates, is3DEnabled: true)
+            MapView(coordinate: vm.mapLocation.coordinates, is3DEnabled: vm.is3DShown)
                 .ignoresSafeArea()
             
             VStack(spacing: 0){

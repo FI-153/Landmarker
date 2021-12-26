@@ -18,6 +18,7 @@
 		A12879BF2777BA9000584FEC /* LocationPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12879BE2777BA9000584FEC /* LocationPreviewView.swift */; };
 		A1287FF527786DB0002E414B /* LocationPrevewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1287FF427786DB0002E414B /* LocationPrevewViewModel.swift */; };
 		A18951832778CFFE00BC81A8 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18951822778CFFE00BC81A8 /* MapView.swift */; };
+		A18951862778D1A100BC81A8 /* Toggle3DButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18951852778D1A100BC81A8 /* Toggle3DButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		A12879BE2777BA9000584FEC /* LocationPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPreviewView.swift; sourceTree = "<group>"; };
 		A1287FF427786DB0002E414B /* LocationPrevewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPrevewViewModel.swift; sourceTree = "<group>"; };
 		A18951822778CFFE00BC81A8 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		A18951852778D1A100BC81A8 /* Toggle3DButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toggle3DButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				A12879BB2777B05800584FEC /* LocationsListView.swift */,
+				A18951842778D17A00BC81A8 /* Buttons */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -142,6 +145,14 @@
 				A18951822778CFFE00BC81A8 /* MapView.swift */,
 			);
 			path = UIKitComponents;
+			sourceTree = "<group>";
+		};
+		A18951842778D17A00BC81A8 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				A18951852778D1A100BC81A8 /* Toggle3DButtonView.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +232,7 @@
 				A12879BC2777B05800584FEC /* LocationsListView.swift in Sources */,
 				A12879BF2777BA9000584FEC /* LocationPreviewView.swift in Sources */,
 				A12879B22777A59100584FEC /* Location.swift in Sources */,
+				A18951862778D1A100BC81A8 /* Toggle3DButtonView.swift in Sources */,
 				A18951832778CFFE00BC81A8 /* MapView.swift in Sources */,
 				A128799F2777A46300584FEC /* LandmarkerApp.swift in Sources */,
 			);

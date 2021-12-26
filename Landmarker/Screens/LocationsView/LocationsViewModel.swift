@@ -26,6 +26,8 @@ class LocationsViewModel: ObservableObject {
     
     @Published var isLocationListShown = false
     
+    @Published var is3DShown = true
+    
     init(){
         let locations = LocationsDataService.locations
         self.locations = locations
