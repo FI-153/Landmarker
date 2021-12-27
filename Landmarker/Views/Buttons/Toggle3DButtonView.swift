@@ -26,7 +26,7 @@ struct Toggle3DButtonView: View {
                         if is3DShown {
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(
-                                    LinearGradient(colors: [Color.red, Color.blue.opacity(0.8)], startPoint: .bottomLeading, endPoint: .topTrailing)
+                                    LinearGradient(colors: [Color.accentColor, Color.secondary], startPoint: .bottomLeading, endPoint: .topTrailing)
                                 )
                                 .frame(width: 55, height: 55)
                                 .transition(.scale.combined(with: .opacity))

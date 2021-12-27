@@ -17,26 +17,30 @@ struct LocationsView: View {
             MapView(coordinate: vm.mapLocation.coordinates, is3DEnabled: vm.is3DShown)
                 .ignoresSafeArea()
             
+//            Map(coordinateRegion: $vm.mapRegion,
+//                annotationItems: vm.locations) { location in
+//                MapAnnotation(coordinate: location.coordinates) {
+//                    LocationMapAnnotationView()
+//                        .scaleEffect(vm.mapLocation == location ? 1 : 0.7)
+//                        .shadow(radius: 10)
+//                        .onTapGesture {
+//                            vm.showNextLocation(location: location)
+//                        }
+//                }
+//            }
+//                .ignoresSafeArea()
+            
             VStack(spacing: 0){
                 header
                     .padding()
                 
                 Spacer()
                 
-                ZStack{
-                    //Used ForEach to alloe for the transition to happend when the current location is changed
-                    ForEach(vm.locations){ location in
-                        
-                        //Display the preview of only the current location
-                        if vm.mapLocation == location {
-                            LocationPreviewView(location: location, vm: vm)
-                                .shadow(color: Color.black.opacity(0.3), radius: 20)
-                                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
-                        }
-                    }
-                }
-                
+                locationPreviewStack
             }
+        }
+        .sheet(isPresented: $vm.isSheetShown) {
+            LocationDetailView(location: vm.mapLocation, isSheetShown: $vm.isSheetShown)
         }
     }
 }
@@ -72,6 +76,22 @@ extension LocationsView{
         .cornerRadius(10)
         .shadow(radius: 20)
         
+    }
+    
+    private var locationPreviewStack: some View {
+        ZStack{
+            //Used ForEach to alloe for the transition to happend when the current location is changed
+            ForEach(vm.locations){ location in
+                
+                //Display the preview of only the current location
+                if vm.mapLocation == location {
+                    LocationPreviewView(location: location, vm: vm)
+                        .shadow(color: Color.black.opacity(0.3), radius: 20)
+                        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+                }
+            }
+        }
+
     }
 }
 

@@ -19,6 +19,9 @@
 		A1287FF527786DB0002E414B /* LocationPrevewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1287FF427786DB0002E414B /* LocationPrevewViewModel.swift */; };
 		A18951832778CFFE00BC81A8 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18951822778CFFE00BC81A8 /* MapView.swift */; };
 		A18951862778D1A100BC81A8 /* Toggle3DButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18951852778D1A100BC81A8 /* Toggle3DButtonView.swift */; };
+		A196EB1C2779E3B900198C7C /* LocationMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A196EB1B2779E3B900198C7C /* LocationMapAnnotationView.swift */; };
+		A1EAE46D277A1EA300C6F085 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EAE46C277A1EA300C6F085 /* LocationDetailView.swift */; };
+		A1EAE46F277A23C000C6F085 /* SheetButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EAE46E277A23C000C6F085 /* SheetButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +38,9 @@
 		A1287FF427786DB0002E414B /* LocationPrevewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPrevewViewModel.swift; sourceTree = "<group>"; };
 		A18951822778CFFE00BC81A8 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		A18951852778D1A100BC81A8 /* Toggle3DButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toggle3DButtonView.swift; sourceTree = "<group>"; };
+		A196EB1B2779E3B900198C7C /* LocationMapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapAnnotationView.swift; sourceTree = "<group>"; };
+		A1EAE46C277A1EA300C6F085 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
+		A1EAE46E277A23C000C6F085 /* SheetButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,7 @@
 			children = (
 				A12879B82777A6A900584FEC /* LocationsView */,
 				A12879BD2777BA6F00584FEC /* LocationPrevewView */,
+				A1EAE46B277A1E2900C6F085 /* LocationDetailView */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -108,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				A12879BB2777B05800584FEC /* LocationsListView.swift */,
+				A196EB1B2779E3B900198C7C /* LocationMapAnnotationView.swift */,
 				A18951842778D17A00BC81A8 /* Buttons */,
 			);
 			path = Views;
@@ -151,8 +159,17 @@
 			isa = PBXGroup;
 			children = (
 				A18951852778D1A100BC81A8 /* Toggle3DButtonView.swift */,
+				A1EAE46E277A23C000C6F085 /* SheetButtonView.swift */,
 			);
 			path = Buttons;
+			sourceTree = "<group>";
+		};
+		A1EAE46B277A1E2900C6F085 /* LocationDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				A1EAE46C277A1EA300C6F085 /* LocationDetailView.swift */,
+			);
+			path = LocationDetailView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,6 +244,7 @@
 			files = (
 				A1287FF527786DB0002E414B /* LocationPrevewViewModel.swift in Sources */,
 				A12879B52777A64E00584FEC /* LocationsDataService.swift in Sources */,
+				A1EAE46D277A1EA300C6F085 /* LocationDetailView.swift in Sources */,
 				A12879BA2777A6B700584FEC /* LocationsViewModel.swift in Sources */,
 				A12879B72777A6A200584FEC /* LocationsView.swift in Sources */,
 				A12879BC2777B05800584FEC /* LocationsListView.swift in Sources */,
@@ -235,6 +253,8 @@
 				A18951862778D1A100BC81A8 /* Toggle3DButtonView.swift in Sources */,
 				A18951832778CFFE00BC81A8 /* MapView.swift in Sources */,
 				A128799F2777A46300584FEC /* LandmarkerApp.swift in Sources */,
+				A1EAE46F277A23C000C6F085 /* SheetButtonView.swift in Sources */,
+				A196EB1C2779E3B900198C7C /* LocationMapAnnotationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
