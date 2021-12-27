@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct LocationsListView: View {
-    @EnvironmentObject var vm:LocationsViewModel
+    @EnvironmentObject var locationManager:LocationsManager
     
     var body: some View {
         List{
-            ForEach(vm.locations){ location in
+            ForEach(locationManager.locations){ location in
                 Button {
-                    vm.showNextLocation(location: location)
+                    locationManager.showNextLocation(location: location)
                 } label: {
                     listRowView(location: location)
                         .background(Color.clear)
@@ -55,6 +55,6 @@ extension LocationsListView {
 struct LocationsListView_Previews: PreviewProvider {
     static var previews: some View {
         LocationsListView()
-            .environmentObject(LocationsViewModel())
+            .environmentObject(LocationsManager())
     }
 }

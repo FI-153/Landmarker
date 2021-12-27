@@ -10,11 +10,12 @@ import MapKit
 
 struct LocationsView: View {
     
-    @EnvironmentObject private var vm:LocationsViewModel
+    @EnvironmentObject private var locationManager:LocationsManager
+    @StateObject private var vm:LocationsViewModel = LocationsViewModel()
     
     var body: some View {
         ZStack{
-            MapView(coordinate: vm.mapLocation.coordinates, is3DEnabled: vm.is3DShown)
+            MapView(coordinate: locationManager.mapLocation.coordinates, is3DEnabled: vm.is3DShown)
                 .ignoresSafeArea()
             
 //            Map(coordinateRegion: $vm.mapRegion,
@@ -40,7 +41,7 @@ struct LocationsView: View {
             }
         }
         .sheet(isPresented: $vm.isSheetShown) {
-            LocationDetailView(location: vm.mapLocation, isSheetShown: $vm.isSheetShown)
+            LocationDetailView(location: locationManager.mapLocation, isSheetShown: $vm.isSheetShown)
         }
     }
 }
@@ -48,12 +49,12 @@ struct LocationsView: View {
 extension LocationsView{
     private var header: some View {
         VStack {
-            Text("\(vm.mapLocation.name), \(vm.mapLocation.cityName)")
+            Text("\(locationManager.mapLocation.name), \(locationManager.mapLocation.cityName)")
                 .font(.title2)
                 .bold()
                 .frame(height: 55)
                 .frame(maxWidth: .infinity)
-                .animation(.none, value: vm.mapLocation)
+                .animation(.none, value: locationManager.mapLocation)
                 .overlay(alignment: .leading) {
                     Button {
                         vm.toggleLocationsList()
@@ -81,11 +82,11 @@ extension LocationsView{
     private var locationPreviewStack: some View {
         ZStack{
             //Used ForEach to alloe for the transition to happend when the current location is changed
-            ForEach(vm.locations){ location in
+            ForEach(locationManager.locations){ location in
                 
                 //Display the preview of only the current location
-                if vm.mapLocation == location {
-                    LocationPreviewView(location: location)
+                if locationManager.mapLocation == location {
+                    LocationPreviewView(location: location, is3DShown: $vm.is3DShown, isSheetShown: $vm.isSheetShown)
                         .shadow(color: Color.black.opacity(0.3), radius: 20)
                         .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
                 }
@@ -96,9 +97,9 @@ extension LocationsView{
 }
 
 
-struct Previews_LocationsView_Previews: PreviewProvider {
-    static var previews: some View {
-        LocationsView()
-            .environmentObject(LocationsViewModel())
-    }
-}
+//struct Previews_LocationsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LocationsView(vm: LocationsViewModel())
+//            .environmentObject(LocationManager())
+//    }
+//}

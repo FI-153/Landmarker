@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct LocationPreviewView: View {
-    
     let location:Location
+
+    @EnvironmentObject var locationManager:LocationsManager
+    @Binding var is3DShown:Bool
+    @Binding var isSheetShown:Bool
     
-    @EnvironmentObject var vm:LocationsViewModel
-    
+
     var body: some View {
         HStack(alignment: .bottom, spacing: 0.0) {
             VStack(alignment: .leading, spacing: 16.0) {
@@ -31,7 +33,7 @@ struct LocationPreviewView: View {
                 .fill(.ultraThinMaterial)
                 .offset(y: 65)
                 .overlay(alignment: .topTrailing, content: {
-                    Toggle3DButtonView(is3DShown: $vm.is3DShown)
+                    Toggle3DButtonView(is3DShown: $is3DShown)
                         .padding(.horizontal)
                 })
         )
@@ -72,7 +74,7 @@ extension LocationPreviewView {
     
     private var learnMoreButton: some View {
         Button {
-            vm.isSheetShown.toggle()
+            isSheetShown.toggle()
         } label: {
             Text("Learn more")
                 .font(.headline)
@@ -83,7 +85,7 @@ extension LocationPreviewView {
     
     private var nextButton: some View {
         Button {
-            vm.showNextLocation(location: vm.getNextLocation())
+            locationManager.showNextLocation(location: locationManager.getNextLocation())
         } label: {
             Text("Next")
                 .font(.headline)
@@ -99,7 +101,7 @@ extension LocationPreviewView {
 struct LocationPreviewView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            LocationPreviewView(location: LocationsDataService.locations[0])
+            LocationPreviewView(location: LocationsDataService.locations[0], is3DShown: .constant(false), isSheetShown: .constant(false))
         }
     }
 }
