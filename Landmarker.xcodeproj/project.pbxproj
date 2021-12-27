@@ -16,7 +16,6 @@
 		A12879BA2777A6B700584FEC /* LocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12879B92777A6B700584FEC /* LocationsViewModel.swift */; };
 		A12879BC2777B05800584FEC /* LocationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12879BB2777B05800584FEC /* LocationsListView.swift */; };
 		A12879BF2777BA9000584FEC /* LocationPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12879BE2777BA9000584FEC /* LocationPreviewView.swift */; };
-		A1287FF527786DB0002E414B /* LocationPrevewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1287FF427786DB0002E414B /* LocationPrevewViewModel.swift */; };
 		A18951832778CFFE00BC81A8 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18951822778CFFE00BC81A8 /* MapView.swift */; };
 		A18951862778D1A100BC81A8 /* Toggle3DButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18951852778D1A100BC81A8 /* Toggle3DButtonView.swift */; };
 		A192F4AE277A4213001516FF /* LocationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A192F4AD277A4213001516FF /* LocationsManager.swift */; };
@@ -36,7 +35,6 @@
 		A12879B92777A6B700584FEC /* LocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewModel.swift; sourceTree = "<group>"; };
 		A12879BB2777B05800584FEC /* LocationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListView.swift; sourceTree = "<group>"; };
 		A12879BE2777BA9000584FEC /* LocationPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPreviewView.swift; sourceTree = "<group>"; };
-		A1287FF427786DB0002E414B /* LocationPrevewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPrevewViewModel.swift; sourceTree = "<group>"; };
 		A18951822778CFFE00BC81A8 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		A18951852778D1A100BC81A8 /* Toggle3DButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toggle3DButtonView.swift; sourceTree = "<group>"; };
 		A192F4AD277A4213001516FF /* LocationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsManager.swift; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 			isa = PBXGroup;
 			children = (
 				A12879B82777A6A900584FEC /* LocationsView */,
-				A12879BD2777BA6F00584FEC /* LocationPrevewView */,
 				A1EAE46B277A1E2900C6F085 /* LocationDetailView */,
 			);
 			path = Screens;
@@ -118,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				A12879BB2777B05800584FEC /* LocationsListView.swift */,
+				A12879BE2777BA9000584FEC /* LocationPreviewView.swift */,
 				A196EB1B2779E3B900198C7C /* LocationMapAnnotationView.swift */,
 				A18951842778D17A00BC81A8 /* Buttons */,
 			);
@@ -139,15 +137,6 @@
 				A12879B92777A6B700584FEC /* LocationsViewModel.swift */,
 			);
 			path = LocationsView;
-			sourceTree = "<group>";
-		};
-		A12879BD2777BA6F00584FEC /* LocationPrevewView */ = {
-			isa = PBXGroup;
-			children = (
-				A12879BE2777BA9000584FEC /* LocationPreviewView.swift */,
-				A1287FF427786DB0002E414B /* LocationPrevewViewModel.swift */,
-			);
-			path = LocationPrevewView;
 			sourceTree = "<group>";
 		};
 		A18951812778CFE500BC81A8 /* UIKitComponents */ = {
@@ -253,7 +242,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1287FF527786DB0002E414B /* LocationPrevewViewModel.swift in Sources */,
 				A12879B52777A64E00584FEC /* LocationsDataService.swift in Sources */,
 				A1EAE46D277A1EA300C6F085 /* LocationDetailView.swift in Sources */,
 				A12879BA2777A6B700584FEC /* LocationsViewModel.swift in Sources */,

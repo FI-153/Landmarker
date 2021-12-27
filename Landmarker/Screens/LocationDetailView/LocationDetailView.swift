@@ -10,10 +10,10 @@ import MapKit
 
 struct LocationDetailView: View {
     
-    let location:Location
-    
     @Binding var isSheetShown:Bool
     
+    let location:Location
+
     var body: some View {
         ScrollView{
             VStack{
@@ -123,8 +123,9 @@ extension LocationDetailView {
 }
 
 
+
 struct LocationDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationDetailView(location: LocationsDataService.locations[0], isSheetShown: .constant(true))
+        LocationDetailView(isSheetShown: .constant(true), location: LocationsDataService.locations[0])
     }
 }

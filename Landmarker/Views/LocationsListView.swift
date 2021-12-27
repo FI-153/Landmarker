@@ -52,6 +52,8 @@ extension LocationsListView {
     }
 }
 
+
+
 struct LocationsListView_Previews: PreviewProvider {
     static var previews: some View {
         LocationsListView()

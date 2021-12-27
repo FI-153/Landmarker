@@ -41,7 +41,7 @@ struct LocationsView: View {
             }
         }
         .sheet(isPresented: $vm.isSheetShown) {
-            LocationDetailView(location: locationManager.mapLocation, isSheetShown: $vm.isSheetShown)
+            LocationDetailView(isSheetShown: $vm.isSheetShown, location: locationManager.mapLocation)
         }
     }
 }
@@ -63,7 +63,7 @@ extension LocationsView{
                             .font(.headline)
                             .foregroundColor(.primary)
                             .padding()
-                            .rotationEffect(.degrees(vm.isLocationListShown ? -180 : 0))
+                            .rotationEffect(.degrees(vm.arrowRotationAmount))
                     }
                 }
             
@@ -81,7 +81,7 @@ extension LocationsView{
     
     private var locationPreviewStack: some View {
         ZStack{
-            //Used ForEach to alloe for the transition to happend when the current location is changed
+            //Used ForEach to allow for the transition to happend when the current location is changed
             ForEach(locationManager.locations){ location in
                 
                 //Display the preview of only the current location
@@ -97,9 +97,10 @@ extension LocationsView{
 }
 
 
-//struct Previews_LocationsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LocationsView(vm: LocationsViewModel())
-//            .environmentObject(LocationManager())
-//    }
-//}
+
+struct Previews_LocationsView_Previews: PreviewProvider {
+    static var previews: some View {
+        LocationsView()
+            .environmentObject(LocationsManager())
+    }
+}

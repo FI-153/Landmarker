@@ -13,7 +13,6 @@ struct LocationPreviewView: View {
     @EnvironmentObject var locationManager:LocationsManager
     @Binding var is3DShown:Bool
     @Binding var isSheetShown:Bool
-    
 
     var body: some View {
         HStack(alignment: .bottom, spacing: 0.0) {

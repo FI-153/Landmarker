@@ -12,41 +12,47 @@ struct Toggle3DButtonView: View {
     @Binding var is3DShown:Bool
     
     var body: some View {
-        
         Button {
-            toggle3d()
-        } label: {
+            withAnimation(.easeInOut){
+                is3DShown.toggle()
+            }
             
+        } label: {
             Text("3D")
                 .foregroundColor(is3DShown ? .white : .black)
                 .font(.system(size: 25, weight: .bold))
                 .background(
-                    
                     ZStack{
                         if is3DShown {
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(
-                                    LinearGradient(colors: [Color.accentColor, Color.secondary], startPoint: .bottomLeading, endPoint: .topTrailing)
-                                )
-                                .frame(width: 55, height: 55)
-                                .transition(.scale.combined(with: .opacity))
+                            coloredBackground
                         }
-                        
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Material.ultraThinMaterial)
-                            .frame(width: 60, height: 60)
+                        opacqueBackground
                     }
                 )
         }
         
     }
-    
-    func toggle3d(){
-        withAnimation(.easeInOut){
-            is3DShown.toggle()
-        }
-    }
 }
+
+extension Toggle3DButtonView {
+    private var coloredBackground: some View {
+        RoundedRectangle(cornerRadius: 10)
+            .fill(
+                LinearGradient(colors: [Color.accentColor, Color.secondary], startPoint: .bottomLeading, endPoint: .topTrailing)
+            )
+            .frame(width: 55, height: 55)
+            .transition(.scale.combined(with: .opacity))
+    }
+    
+    private var opacqueBackground: some View {
+        RoundedRectangle(cornerRadius: 10)
+            .fill(Material.ultraThinMaterial)
+            .frame(width: 60, height: 60)
+    }
+    
+}
+
+
 
 struct Toggle3DButtonView_Previews: PreviewProvider {
     static var previews: some View {
