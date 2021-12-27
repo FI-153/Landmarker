@@ -15,7 +15,7 @@ struct LocationsView: View {
     
     var body: some View {
         ZStack{
-            MapView(coordinate: locationManager.mapLocation.coordinates, is3DEnabled: vm.is3DShown)
+            MapView(coordinates: locationManager.mapLocation.coordinates, is3DEnabled: vm.is3DShown)
                 .ignoresSafeArea()
             
 //            Map(coordinateRegion: $vm.mapRegion,
