@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
-    let coordinate:CLLocationCoordinate2D
+    let coordinates:CLLocationCoordinate2D
     let is3DEnabled:Bool
     
     var mapView = MKMapView(frame: .zero)
@@ -19,7 +19,7 @@ struct MapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        let camera = MKMapCamera(lookingAtCenter: coordinate,
+        let camera = MKMapCamera(lookingAtCenter: coordinates,
                                  fromDistance: 1200,
                                  pitch: is3DEnabled ? 80 : 0,
                                  heading: 0)
