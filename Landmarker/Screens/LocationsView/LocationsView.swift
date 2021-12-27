@@ -85,7 +85,7 @@ extension LocationsView{
                 
                 //Display the preview of only the current location
                 if vm.mapLocation == location {
-                    LocationPreviewView(location: location, vm: vm)
+                    LocationPreviewView(location: location)
                         .shadow(color: Color.black.opacity(0.3), radius: 20)
                         .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
                 }

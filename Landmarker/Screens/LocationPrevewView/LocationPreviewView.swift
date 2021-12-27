@@ -11,7 +11,7 @@ struct LocationPreviewView: View {
     
     let location:Location
     
-    @ObservedObject var vm:LocationsViewModel
+    @EnvironmentObject var vm:LocationsViewModel
     
     var body: some View {
         HStack(alignment: .bottom, spacing: 0.0) {
@@ -99,7 +99,7 @@ extension LocationPreviewView {
 struct LocationPreviewView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            LocationPreviewView(location: LocationsDataService.locations[0], vm: LocationsViewModel())
+            LocationPreviewView(location: LocationsDataService.locations[0])
         }
     }
 }
