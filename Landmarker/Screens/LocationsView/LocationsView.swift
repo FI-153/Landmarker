@@ -71,7 +71,7 @@ extension LocationsView{
             }
             
         }
-        .background(.ultraThickMaterial)
+        .background(.thickMaterial)
         .cornerRadius(10)
         .shadow(radius: 20)
         
@@ -107,10 +107,12 @@ extension LocationsView{
                 .overlay{
                     if vm.is3DShown {
                         Image(systemName: "view.2d")
+                            .foregroundColor(.primary)
                             .font(.headline)
                             .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)).combined(with: .opacity))
                     } else {
                         Image(systemName: "view.3d")
+                            .foregroundColor(.primary)
                             .font(.headline)
                             .transition(.asymmetric(insertion: .move(edge: .top), removal: .move(edge: .bottom)).combined(with: .opacity))
                     }

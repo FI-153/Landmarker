@@ -29,7 +29,7 @@ struct LocationPreviewView: View {
         .padding(20)
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .fill(.ultraThinMaterial)
+                .fill(.thickMaterial)
                 .offset(y: 70)
         )
         .cornerRadius(10)
@@ -50,7 +50,6 @@ extension LocationPreviewView {
             }
         }
         .padding(6)
-        .background(Color.white)
         .cornerRadius(10)
 
     }

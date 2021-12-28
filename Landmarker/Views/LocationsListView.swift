@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct LocationsListView: View {
+    
     @EnvironmentObject var locationManager:LocationsManager
     @Binding var isLocationListShown:Bool
     
     var body: some View {
         
-        ScrollView{
+        ScrollView(showsIndicators: false){
             ForEach(locationManager.locations){ location in
                 Button {
                     locationManager.showLocation(location: location)
@@ -24,8 +25,9 @@ struct LocationsListView: View {
                 } label: {
                     listRowView(location: location)
                         .padding(.vertical, 4)
-                        .background(.ultraThickMaterial)
+                        .background(Color.clear)
                 }
+                .padding(.vertical, 10)
 
             }
             .padding()
@@ -56,6 +58,17 @@ extension LocationsListView {
                     .foregroundColor(.secondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Spacer()
+            
+            Button {
+                LocationsManager.getDirections(to: location)
+            } label: {
+            Image(systemName: "location.fill")
+                .padding(.horizontal)
+                .symbolRenderingMode(.none)
+                .foregroundColor(.primary)
+            }
         }
 
     }
