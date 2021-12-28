@@ -10,9 +10,14 @@ import MapKit
 
 struct LocationDetailView: View {
     
-    @Binding var isSheetShown:Bool
+    @StateObject private var vm:LocationDetailViewModel
     
     let location:Location
+    
+    init(isSheetShown:Binding<Bool>, location:Location){
+        _vm = StateObject(wrappedValue: LocationDetailViewModel(isSheetShown: isSheetShown))
+        self.location = location
+    }
 
     var body: some View {
         ScrollView{
@@ -34,7 +39,7 @@ struct LocationDetailView: View {
         .ignoresSafeArea()
         .background(.ultraThinMaterial)
         .overlay(alignment: .topTrailing) {
-            buttonSection
+            buttonsSection
         }
     }
 }
@@ -90,12 +95,12 @@ extension LocationDetailView {
             .cornerRadius(30)
     }
     
-    private var buttonSection: some View{
+    private var buttonsSection: some View{
         VStack(){
             
             //Close
             Button {
-                isSheetShown.toggle()
+                vm.isSheetShown.toggle()
             } label: {
                 SheetButtonView(imageName: "xmark", isSfSymbol: true)
             }
@@ -111,16 +116,7 @@ extension LocationDetailView {
             
             //Directions - plot directions
             Button {
-                let latitude = location.coordinates.latitude
-                let longitude = location.coordinates.longitude
-                
-                if let url = URL(string: "maps://?daddr=\(latitude),\(longitude)&dirflg=w") {
-                    if UIApplication.shared.canOpenURL(url){
-                        //Opens the Maps app with directions to the desired landmark from the current position
-                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                    }
-                }
-                
+                vm.getDirections(to: location)
             } label: {
                 SheetButtonView(imageName: "location.fill", isSfSymbol: true)
             }

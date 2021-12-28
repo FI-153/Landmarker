@@ -20,6 +20,7 @@
 		A18951862778D1A100BC81A8 /* Toggle3DButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18951852778D1A100BC81A8 /* Toggle3DButtonView.swift */; };
 		A192F4AE277A4213001516FF /* LocationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A192F4AD277A4213001516FF /* LocationsManager.swift */; };
 		A196EB1C2779E3B900198C7C /* LocationMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A196EB1B2779E3B900198C7C /* LocationMapAnnotationView.swift */; };
+		A1C3BAB0277B3B0D00CB58E9 /* LocationDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C3BAAF277B3B0D00CB58E9 /* LocationDetailViewModel.swift */; };
 		A1EAE46D277A1EA300C6F085 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EAE46C277A1EA300C6F085 /* LocationDetailView.swift */; };
 		A1EAE46F277A23C000C6F085 /* SheetButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EAE46E277A23C000C6F085 /* SheetButtonView.swift */; };
 /* End PBXBuildFile section */
@@ -40,6 +41,7 @@
 		A18951852778D1A100BC81A8 /* Toggle3DButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toggle3DButtonView.swift; sourceTree = "<group>"; };
 		A192F4AD277A4213001516FF /* LocationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsManager.swift; sourceTree = "<group>"; };
 		A196EB1B2779E3B900198C7C /* LocationMapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapAnnotationView.swift; sourceTree = "<group>"; };
+		A1C3BAAF277B3B0D00CB58E9 /* LocationDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewModel.swift; sourceTree = "<group>"; };
 		A1EAE46C277A1EA300C6F085 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		A1EAE46E277A23C000C6F085 /* SheetButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				A1EAE46C277A1EA300C6F085 /* LocationDetailView.swift */,
+				A1C3BAAF277B3B0D00CB58E9 /* LocationDetailViewModel.swift */,
 			);
 			path = LocationDetailView;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1C3BAB0277B3B0D00CB58E9 /* LocationDetailViewModel.swift in Sources */,
 				A12879B52777A64E00584FEC /* LocationsDataService.swift in Sources */,
 				A1EAE46D277A1EA300C6F085 /* LocationDetailView.swift in Sources */,
 				A12879BA2777A6B700584FEC /* LocationsViewModel.swift in Sources */,
