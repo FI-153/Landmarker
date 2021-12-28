@@ -16,7 +16,7 @@ class LocationsManager: ObservableObject {
     ///Current location on the map, when set the map shown is changed accordingly
     @Published var mapLocation:Location {
         didSet{
-            updateMapRegion(location: mapLocation)
+            updateMapRegion(to: mapLocation)
         }
     }
     
@@ -28,12 +28,12 @@ class LocationsManager: ObservableObject {
         self.locations = locations
         self.mapLocation = locations.first!
         
-        self.updateMapRegion(location: mapLocation)
+        self.updateMapRegion(to: mapLocation)
     }
 
     
     ///Updates what the map is showing
-    private func updateMapRegion(location:Location){
+    func updateMapRegion(to location:Location){
         withAnimation(.easeInOut){
             mapRegion = MKCoordinateRegion(center: location.coordinates,
                                       span: MKCoordinateSpan(latitudeDelta: 0.007, longitudeDelta: 0.007))
