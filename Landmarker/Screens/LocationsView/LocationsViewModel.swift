@@ -15,15 +15,20 @@ class LocationsViewModel: ObservableObject {
     @Published var is3DShown = true
     @Published var isSheetShown = false
     
-    ///Toggles the activation of the drop-down menu to select locations
-     func toggleLocationsList(){
+    var arrowRotationAmount:CGFloat {
+        isLocationListShown ? -180 : 0
+    }
+    
+    func toggleLocationsList(){
         withAnimation(.spring()){
             self.isLocationListShown.toggle()
         }
     }
     
-    var arrowRotationAmount:CGFloat {
-        isLocationListShown ? -180 : 0
+    func toggle3D(){
+        withAnimation(.linear){
+            is3DShown.toggle()
+        }
     }
     
 }
