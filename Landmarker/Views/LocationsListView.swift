@@ -14,7 +14,7 @@ struct LocationsListView: View {
         List{
             ForEach(locationManager.locations){ location in
                 Button {
-                    locationManager.showNextLocation(location: location)
+                    locationManager.showLocation(location: location)
                 } label: {
                     listRowView(location: location)
                         .background(Color.clear)

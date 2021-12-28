@@ -41,7 +41,7 @@ class LocationsManager: ObservableObject {
     }
 
     ///Shows a specifica location
-    func showNextLocation(location:Location){
+    func showLocation(location:Location){
         withAnimation(.easeInOut){
             mapLocation = location
         }
@@ -58,6 +58,11 @@ class LocationsManager: ObservableObject {
         let nextLocation = locations.firstIndex(of: mapLocation)! + 1
         return locations[nextLocation]
         
+    }
+    
+    ///Shown the next location
+    func showNextLocation(){
+        showLocation(location: getNextLocation())
     }
 
 }

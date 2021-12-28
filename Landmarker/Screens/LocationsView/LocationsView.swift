@@ -17,20 +17,7 @@ struct LocationsView: View {
         ZStack{
             MapView(coordinates: locationManager.mapLocation.coordinates, is3DEnabled: vm.is3DShown)
                 .ignoresSafeArea()
-            
-//            Map(coordinateRegion: $vm.mapRegion,
-//                annotationItems: vm.locations) { location in
-//                MapAnnotation(coordinate: location.coordinates) {
-//                    LocationMapAnnotationView()
-//                        .scaleEffect(vm.mapLocation == location ? 1 : 0.7)
-//                        .shadow(radius: 10)
-//                        .onTapGesture {
-//                            vm.showNextLocation(location: location)
-//                        }
-//                }
-//            }
-//                .ignoresSafeArea()
-            
+                        
             VStack(spacing: 0){
                 header
                     .padding()

@@ -9,7 +9,8 @@ import SwiftUI
 
 @main
 struct LandmarkerApp: App {
-    @StateObject  var locationManager = LocationsManager()
+    
+    @StateObject var locationManager = LocationsManager()
     
     var body: some Scene {
         WindowGroup {
