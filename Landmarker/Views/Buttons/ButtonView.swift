@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SheetButtonView: View {
+struct ButtonView: View {
     
     let imageName:String
     let isSfSymbol:Bool
@@ -47,8 +47,8 @@ extension Image {
 struct BackButtonView_Previews: PreviewProvider {
     static var previews: some View {
         HStack{
-            SheetButtonView(imageName: "xmark", isSfSymbol: true)
-            SheetButtonView(imageName: "wikipedia-logo", isSfSymbol: false)
+            ButtonView(imageName: "xmark", isSfSymbol: true)
+            ButtonView(imageName: "wikipedia-logo", isSfSymbol: false)
         }
     }
 }

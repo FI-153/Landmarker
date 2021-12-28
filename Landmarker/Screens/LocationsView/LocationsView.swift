@@ -13,22 +13,28 @@ struct LocationsView: View {
     @EnvironmentObject private var locationManager:LocationsManager
     @StateObject private var vm:LocationsViewModel = LocationsViewModel()
     
+    let maxWidthForIpad:CGFloat = 700
+    
     var body: some View {
         ZStack{
             MapView(location: locationManager.mapLocation, is3DEnabled: vm.is3DShown)
                 .ignoresSafeArea()
             
+            //Overlay of the map
             VStack(spacing: 0){
                 header
                     .padding()
+                    .frame(maxWidth: maxWidthForIpad)
                 
                 Spacer()
                 
                 locationPreviewStack
-                    .overlay(alignment: .topTrailing, content: {
-                        Toggle3DButtonView(is3DShown: $vm.is3DShown)
-                            .padding(.horizontal,30)
-                    })
+                    .frame(maxWidth: maxWidthForIpad)
+                    .overlay(alignment: .topTrailing) {
+                        toggle3dButton
+                            .padding(.horizontal)
+                    }
+                
                 
             }
         }
@@ -80,11 +86,39 @@ extension LocationsView{
                 if locationManager.mapLocation == location {
                     LocationPreviewView(location: location, is3DShown: $vm.is3DShown, isSheetShown: $vm.isSheetShown)
                         .shadow(color: Color.black.opacity(0.3), radius: 20)
-                        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+                        .frame(maxWidth: maxWidthForIpad)
+                        .frame(maxWidth: .infinity)
+                        .transition(.asymmetric(
+                            insertion: .move(edge: .trailing),
+                            removal: .move(edge: .leading))
+                        )
                 }
             }
         }
+        
+    }
+    
+    private var toggle3dButton: some View {
+        Button {
+            vm.toggle3D()
+        } label: {
+            Image("")
+                .sheetButtonImage(isSFSymbol: true)
+                .overlay{
+                    if vm.is3DShown {
+                        Image(systemName: "view.2d")
+                            .font(.headline)
+                            .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)).combined(with: .opacity))
+                    } else {
+                        Image(systemName: "view.3d")
+                            .font(.headline)
+                            .transition(.asymmetric(insertion: .move(edge: .top), removal: .move(edge: .bottom)).combined(with: .opacity))
+                    }
 
+                }
+                
+        }
+        
     }
 }
 

@@ -51,7 +51,7 @@ extension LocationDetailView {
                 Image(imageName)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: UIScreen.main.bounds.width)
+                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? nil : UIScreen.main.bounds.width)
             }
         }
         .frame(height: 500)
@@ -102,14 +102,14 @@ extension LocationDetailView {
             Button {
                 vm.isSheetShown.toggle()
             } label: {
-                SheetButtonView(imageName: "xmark", isSfSymbol: true)
+                ButtonView(imageName: "xmark", isSfSymbol: true)
             }
             .padding(.bottom, 10)
             
             //Wikipedia - links to the page
             if let url = URL(string: location.link) {
                 Link(destination: url) {
-                    SheetButtonView(imageName: "wikipedia-logo", isSfSymbol: false)
+                    ButtonView(imageName: "wikipedia-logo", isSfSymbol: false)
                 }
                 .padding(.bottom, 10)
             }
@@ -118,7 +118,7 @@ extension LocationDetailView {
             Button {
                 vm.getDirections(to: location)
             } label: {
-                SheetButtonView(imageName: "location.fill", isSfSymbol: true)
+                ButtonView(imageName: "location.fill", isSfSymbol: true)
             }
             
         }
