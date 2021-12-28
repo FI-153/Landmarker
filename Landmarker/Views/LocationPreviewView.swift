@@ -30,15 +30,11 @@ struct LocationPreviewView: View {
         .background(
             RoundedRectangle(cornerRadius: 10)
                 .fill(.ultraThinMaterial)
-                .offset(y: 65)
-                .overlay(alignment: .topTrailing, content: {
-                    Toggle3DButtonView(is3DShown: $is3DShown)
-                        .padding(.horizontal)
-                })
+                .offset(y: 70)
         )
-        .frame(maxHeight: 250)
         .cornerRadius(10)
-        .padding()
+        .padding(.horizontal)
+        .padding(.bottom, 40)
     }
 }
 
@@ -67,6 +63,7 @@ extension LocationPreviewView {
             
             Text(location.cityName)
                 .font(.subheadline)
+                .foregroundColor(.secondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }

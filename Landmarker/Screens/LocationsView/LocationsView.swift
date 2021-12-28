@@ -17,7 +17,7 @@ struct LocationsView: View {
         ZStack{
             MapView(coordinates: locationManager.mapLocation.coordinates, is3DEnabled: vm.is3DShown)
                 .ignoresSafeArea()
-                        
+            
             VStack(spacing: 0){
                 header
                     .padding()
@@ -25,6 +25,11 @@ struct LocationsView: View {
                 Spacer()
                 
                 locationPreviewStack
+                    .overlay(alignment: .topTrailing, content: {
+                        Toggle3DButtonView(is3DShown: $vm.is3DShown)
+                            .padding(.horizontal,30)
+                    })
+                
             }
         }
         .sheet(isPresented: $vm.isSheetShown) {
@@ -60,7 +65,7 @@ extension LocationsView{
             }
             
         }
-        .background(.thickMaterial)
+        .background(.ultraThickMaterial)
         .cornerRadius(10)
         .shadow(radius: 20)
         

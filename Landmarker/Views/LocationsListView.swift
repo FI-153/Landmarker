@@ -12,7 +12,8 @@ struct LocationsListView: View {
     @Binding var isLocationListShown:Bool
     
     var body: some View {
-        List{
+        
+        ScrollView{
             ForEach(locationManager.locations){ location in
                 Button {
                     locationManager.showLocation(location: location)
@@ -22,13 +23,15 @@ struct LocationsListView: View {
                     }
                 } label: {
                     listRowView(location: location)
-                        .background(Color.clear)
                         .padding(.vertical, 4)
+                        .background(.ultraThickMaterial)
                 }
 
             }
+            .padding()
+            
         }
-        .listStyle(.plain)
+
     }
 }
 
@@ -46,9 +49,11 @@ extension LocationsListView {
             VStack(alignment: .leading) {
                 Text(location.name)
                     .font(.headline)
+                    .foregroundColor(.primary)
                 
                 Text(location.cityName)
                     .font(.subheadline)
+                    .foregroundColor(.secondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -60,7 +65,11 @@ extension LocationsListView {
 
 struct LocationsListView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationsListView(isLocationListShown: .constant(true))
-            .environmentObject(LocationsManager())
+        ZStack {
+            Color.red.ignoresSafeArea()
+            
+            LocationsListView(isLocationListShown: .constant(true))
+                .environmentObject(LocationsManager())
+        }
     }
 }
