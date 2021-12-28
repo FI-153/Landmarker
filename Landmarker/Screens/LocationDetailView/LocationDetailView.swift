@@ -12,15 +12,12 @@ struct LocationDetailView: View {
     
     @StateObject private var vm:LocationDetailViewModel
     
-    let location:Location
-    
     init(isSheetShown:Binding<Bool>, location:Location){
-        _vm = StateObject(wrappedValue: LocationDetailViewModel(isSheetShown: isSheetShown))
-        self.location = location
+        _vm = StateObject(wrappedValue: LocationDetailViewModel(isSheetShown: isSheetShown, location: location))
     }
 
     var body: some View {
-        ScrollView{
+        ScrollView(showsIndicators: false){
             VStack{
                 imageSection
                     .shadow(radius: 20)
@@ -47,7 +44,7 @@ struct LocationDetailView: View {
 extension LocationDetailView {
     private var imageSection: some View {
         TabView{
-            ForEach(location.imageNames, id: \.self){ imageName in
+            ForEach(vm.location.imageNames, id: \.self){ imageName in
                 Image(imageName)
                     .resizable()
                     .scaledToFill()
@@ -61,11 +58,11 @@ extension LocationDetailView {
     
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 8){
-            Text(location.name)
+            Text(vm.location.name)
                 .font(.largeTitle)
                 .fontWeight(.semibold)
             
-            Text(location.cityName)
+            Text(vm.location.cityName)
                 .font(.title3)
                 .foregroundColor(.secondary)
         }
@@ -74,18 +71,18 @@ extension LocationDetailView {
     
     private var descriptionSection: some View {
         VStack(alignment: .leading, spacing: 8){
-            Text(location.description)
+            Text(vm.location.description)
                 .font(.headline)
                 .foregroundColor(.secondary)
         }
     }
     
     private var mapSection: some View {
-        Map(coordinateRegion: .constant( MKCoordinateRegion(center: location.coordinates,
+        Map(coordinateRegion: .constant( MKCoordinateRegion(center: vm.location.coordinates,
                                                         span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
                                                         )
                                        ),
-            annotationItems: [location]) { location in
+            annotationItems: [vm.location]) { location in
             MapAnnotation(coordinate: location.coordinates) {
                 LocationMapAnnotationView()
             }
@@ -107,7 +104,7 @@ extension LocationDetailView {
             .padding(.bottom, 10)
             
             //Wikipedia - links to the page
-            if let url = URL(string: location.link) {
+            if let url = URL(string: vm.location.link) {
                 Link(destination: url) {
                     ButtonView(imageName: "wikipedia-logo", isSfSymbol: false)
                 }
@@ -116,7 +113,7 @@ extension LocationDetailView {
             
             //Directions - plot directions
             Button {
-                vm.getDirections(to: location)
+                LocationsManager.getDirections(to: vm.location)
             } label: {
                 ButtonView(imageName: "location.fill", isSfSymbol: true)
             }

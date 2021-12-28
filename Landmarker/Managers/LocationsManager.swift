@@ -64,5 +64,18 @@ class LocationsManager: ObservableObject {
     func showNextLocation(){
         showLocation(location: getNextLocation())
     }
+    
+    ///Prompts directions to a specified location
+    static func getDirections(to location:Location) {
+        let latitude = location.coordinates.latitude
+        let longitude = location.coordinates.longitude
+        
+        if let url = URL(string: "maps://?daddr=\(latitude),\(longitude)&dirflg=w") {
+            if UIApplication.shared.canOpenURL(url){
+                //Opens the Maps app with directions to the desired landmark from the current position
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+    }
 
 }
