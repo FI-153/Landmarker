@@ -76,7 +76,6 @@
 		A128799D2777A46300584FEC /* Landmarker */ = {
 			isa = PBXGroup;
 			children = (
-				A149FA71277B11100024E758 /* Info.plist */,
 				A128799E2777A46300584FEC /* LandmarkerApp.swift */,
 				A12879AE2777A55D00584FEC /* Models */,
 				A12879AF2777A56300584FEC /* Screens */,
@@ -85,6 +84,7 @@
 				A192F4AF277A466C001516FF /* Managers */,
 				A18951812778CFE500BC81A8 /* UIKitComponents */,
 				A12879AC2777A4D600584FEC /* Assets.xcassets */,
+				A149FA71277B11100024E758 /* Info.plist */,
 				A12879A42777A46500584FEC /* Preview Content */,
 			);
 			path = Landmarker;

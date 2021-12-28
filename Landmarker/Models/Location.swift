@@ -24,4 +24,8 @@ struct Location: Identifiable, Equatable{
     let imageNames:[String]
     let link:String
     
+    let optimalDistance:CLLocationDistance
+    let optimalPitch:CGFloat
+    let optimalHeading:CLLocationDirection
+    
 }

@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
-    let coordinates:CLLocationCoordinate2D
+    let location:Location
     let is3DEnabled:Bool
     
     var mapView = MKMapView(frame: .zero)
@@ -19,15 +19,16 @@ struct MapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        let camera = MKMapCamera(lookingAtCenter: coordinates,
-                                 fromDistance: 1200,
-                                 pitch: is3DEnabled ? 80 : 0,
-                                 heading: 0)
+        let camera = MKMapCamera(lookingAtCenter: location.coordinates,
+                                 fromDistance: location.optimalDistance,
+                                 pitch: is3DEnabled ? location.optimalPitch : 0,
+                                 heading: location.optimalHeading)
         
         uiView.setCamera(camera, animated: true)
         
         placePins()
     }
+
     
     func placePins() {
         let locations = LocationsDataService.locations
@@ -40,11 +41,5 @@ struct MapView: UIViewRepresentable {
             mapView.addAnnotation(annotation)
         }
         
-    }
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "MyMarker")
-        annotationView.markerTintColor = UIColor.blue
-        return annotationView
     }
 }

@@ -21,7 +21,10 @@ class LocationsDataService {
                 "rome-colosseum-2",
                 "rome-colosseum-3",
             ],
-            link: "https://en.wikipedia.org/wiki/Colosseum"),
+            link: "https://en.wikipedia.org/wiki/Colosseum",
+            optimalDistance: 1200,
+            optimalPitch: 80,
+            optimalHeading: 0),
         Location(
             name: "Pantheon",
             cityName: "Rome",
@@ -32,7 +35,10 @@ class LocationsDataService {
                 "rome-pantheon-2",
                 "rome-pantheon-3",
             ],
-            link: "https://en.wikipedia.org/wiki/Pantheon,_Rome"),
+            link: "https://en.wikipedia.org/wiki/Pantheon,_Rome",
+            optimalDistance: 500,
+            optimalPitch: 80,
+            optimalHeading: 170),
         Location(
             name: "Trevi Fountain",
             cityName: "Rome",
@@ -43,7 +49,10 @@ class LocationsDataService {
                 "rome-trevifountain-2",
                 "rome-trevifountain-3",
             ],
-            link: "https://en.wikipedia.org/wiki/Trevi_Fountain"),
+            link: "https://en.wikipedia.org/wiki/Trevi_Fountain",
+            optimalDistance: 350,
+            optimalPitch: 60,
+            optimalHeading: 310),
         Location(
             name: "Eiffel Tower",
             cityName: "Paris",
@@ -53,7 +62,10 @@ class LocationsDataService {
                 "paris-eiffeltower-1",
                 "paris-eiffeltower-2",
             ],
-            link: "https://en.wikipedia.org/wiki/Eiffel_Tower"),
+            link: "https://en.wikipedia.org/wiki/Eiffel_Tower",
+            optimalDistance: 1400,
+            optimalPitch: 80,
+            optimalHeading: 0),
         Location(
             name: "Louvre Museum",
             cityName: "Paris",
@@ -64,7 +76,10 @@ class LocationsDataService {
                 "paris-louvre-2",
                 "paris-louvre-3",
             ],
-            link: "https://en.wikipedia.org/wiki/Louvre"),
+            link: "https://en.wikipedia.org/wiki/Louvre",
+            optimalDistance: 1300,
+            optimalPitch: 85,
+            optimalHeading: 120),
     ]
     
 }
