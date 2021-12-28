@@ -111,6 +111,15 @@ extension LocationDetailView {
             
             //Directions - plot directions
             Button {
+                let latitude = location.coordinates.latitude
+                let longitude = location.coordinates.longitude
+                
+                if let url = URL(string: "maps://?daddr=\(latitude),\(longitude)&dirflg=w") {
+                    if UIApplication.shared.canOpenURL(url){
+                        //Opens the Maps app with directions to the desired landmark from the current position
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    }
+                }
                 
             } label: {
                 SheetButtonView(imageName: "location.fill", isSfSymbol: true)

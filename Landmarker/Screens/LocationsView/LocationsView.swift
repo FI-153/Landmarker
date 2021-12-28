@@ -56,7 +56,7 @@ extension LocationsView{
             
             //drop down menu of the locations
             if vm.isLocationListShown {
-                LocationsListView()
+                LocationsListView(isLocationListShown: $vm.isLocationListShown)
             }
             
         }

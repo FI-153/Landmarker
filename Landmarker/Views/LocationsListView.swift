@@ -9,17 +9,21 @@ import SwiftUI
 
 struct LocationsListView: View {
     @EnvironmentObject var locationManager:LocationsManager
+    @Binding var isLocationListShown:Bool
     
     var body: some View {
         List{
             ForEach(locationManager.locations){ location in
                 Button {
                     locationManager.showLocation(location: location)
+                    
+                    withAnimation(.spring()) {
+                        isLocationListShown = false
+                    }
                 } label: {
                     listRowView(location: location)
                         .background(Color.clear)
                         .padding(.vertical, 4)
-
                 }
 
             }
@@ -56,7 +60,7 @@ extension LocationsListView {
 
 struct LocationsListView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationsListView()
+        LocationsListView(isLocationListShown: .constant(true))
             .environmentObject(LocationsManager())
     }
 }

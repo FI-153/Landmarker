@@ -35,6 +35,7 @@
 		A12879B92777A6B700584FEC /* LocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewModel.swift; sourceTree = "<group>"; };
 		A12879BB2777B05800584FEC /* LocationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListView.swift; sourceTree = "<group>"; };
 		A12879BE2777BA9000584FEC /* LocationPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPreviewView.swift; sourceTree = "<group>"; };
+		A149FA71277B11100024E758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A18951822778CFFE00BC81A8 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		A18951852778D1A100BC81A8 /* Toggle3DButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toggle3DButtonView.swift; sourceTree = "<group>"; };
 		A192F4AD277A4213001516FF /* LocationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsManager.swift; sourceTree = "<group>"; };
@@ -73,6 +74,7 @@
 		A128799D2777A46300584FEC /* Landmarker */ = {
 			isa = PBXGroup;
 			children = (
+				A149FA71277B11100024E758 /* Info.plist */,
 				A128799E2777A46300584FEC /* LandmarkerApp.swift */,
 				A12879AE2777A55D00584FEC /* Models */,
 				A12879AF2777A56300584FEC /* Screens */,
@@ -388,6 +390,7 @@
 				DEVELOPMENT_TEAM = 7F47MKWBPJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Landmarker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -417,6 +420,7 @@
 				DEVELOPMENT_TEAM = 7F47MKWBPJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Landmarker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
