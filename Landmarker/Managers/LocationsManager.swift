@@ -8,6 +8,7 @@
 import Foundation
 import MapKit
 import SwiftUI
+import Combine
 
 class LocationsManager: ObservableObject {
     ///All stored locations
@@ -22,13 +23,45 @@ class LocationsManager: ObservableObject {
     
     ///Diplayed region on the map
     @Published var mapRegion:MKCoordinateRegion = MKCoordinateRegion()
+    
+    var cancellables = Set<AnyCancellable>()
 
     init(){
-        let locations = LocationsDataService.locations
-        self.locations = locations
-        self.mapLocation = locations.first!
+        self.locations = []
+        self.mapLocation = LocationsDataService.mockLocations[0]
         
-        self.updateMapRegion(to: mapLocation)
+        do{
+            try self.getLandmarks()
+        }catch let error {
+            print(error)
+        }
+    }
+    
+    ///Downloads the landmarks from  API
+    func getLandmarks() throws{
+        guard let url = URL(string: "https://api.npoint.io/6fc0a73b89a6dd862f90") else {
+            throw URLError(.badURL)
+        }
+        
+        URLSession.shared.dataTaskPublisher(for: url)
+            .receive(on: DispatchQueue.main)
+            .tryMap(handleOutput)
+            .decode(type: [Location].self, decoder: JSONDecoder())
+            .replaceError(with: LocationsDataService.mockLocations)
+            .sink { [weak self] returnedLocations in
+                self?.locations = returnedLocations
+                self?.mapLocation = returnedLocations[0]
+            }
+            .store(in: &cancellables)
+    }
+    
+    func handleOutput(output:URLSession.DataTaskPublisher.Output) throws -> Data {
+        guard
+            let response = output.response as? HTTPURLResponse,
+            response.statusCode >= 200 && response.statusCode < 300 else {
+                throw URLError(.badServerResponse)
+            }
+        return output.data
     }
 
     

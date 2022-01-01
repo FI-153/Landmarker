@@ -12,6 +12,8 @@ struct MapView: UIViewRepresentable {
     let location:Location
     let is3DEnabled:Bool
     
+    @EnvironmentObject private var locationsManager:LocationsManager
+    
     var mapView = MKMapView(frame: .zero)
     
     func makeUIView(context: Context) -> MKMapView {
@@ -26,20 +28,19 @@ struct MapView: UIViewRepresentable {
         
         uiView.setCamera(camera, animated: true)
         
-        placePins()
+//        placePins()
     }
 
     
     func placePins() {
-        let locations = LocationsDataService.locations
         
-        for location in locations {
+        for location in locationsManager.locations {
             let annotation = MKPointAnnotation()
             annotation.coordinate = location.coordinates
             annotation.title = location.name
-            
+
             mapView.addAnnotation(annotation)
         }
-        
+
     }
 }
