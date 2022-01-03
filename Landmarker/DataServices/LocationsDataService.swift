@@ -37,7 +37,8 @@ class LocationsDataService {
             .decode(type: [Location].self, decoder: JSONDecoder())
             .replaceError(with: LocationsDataService.mockLocations)
             .sink { [weak self] returnedLocations in
-                self?.downloadedData = returnedLocations
+                guard let self = self else { return }
+                self.downloadedData = returnedLocations
             }
             .store(in: &cancellables)
     }

@@ -30,16 +30,36 @@ class LocationsManager: ObservableObject {
         self.locations = []
         self.mapLocation = LocationsDataService.mockLocations[0]
         
-        addSubscriber()
+        addSubscriberToLocations_getsDownloadedLocations()
+        addSubscriberToMapLocation_selectsTheFirstLocation()
     }
     
-    func addSubscriber(){
+    func addSubscriberToLocations_getsDownloadedLocations(){
         locationsDataService.$downloadedData
             .sink { [weak self] downloadedData in
-                self?.locations = downloadedData
+                guard let self = self else { return }
+                self.locations = downloadedData
             }
             .store(in: &locationsDataService.cancellables)
     }
+    
+    func addSubscriberToMapLocation_selectsTheFirstLocation(){
+        locationsDataService.$downloadedData
+            .map({ (downloadedLocations: [Location]) -> Location in
+                if let firstLocation = downloadedLocations.first {
+                    return firstLocation
+                } else {
+                    return LocationsDataService.mockLocations.first!
+                }
+            })
+            .sink { [weak self] firstLocation in
+                
+                guard let self = self else { return }
+                self.mapLocation = firstLocation
+            }
+            .store(in: &locationsDataService.cancellables)
+    }
+
     
     ///Updates what the map is showing
     func updateMapRegion(to location:Location){
