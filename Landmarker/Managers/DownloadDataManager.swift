@@ -9,16 +9,16 @@ import Foundation
 import MapKit
 import Combine
 
-class LocationsDataService {
+class DownloadDataManager {
     
     @Published var downloadedData:[Location] = []
     @Published var isLoading = true
 
     ///Singleton instance of the class
-    static let shared = LocationsDataService()
+    static let shared = DownloadDataManager()
     private init(){
         do {
-            try getLandmarks()
+            try getLandmarksData()
         }catch let error {
             print(error)
         }
@@ -27,7 +27,7 @@ class LocationsDataService {
     var cancellables = Set<AnyCancellable>()
     
     ///Downloads the landmarks from  API
-    func getLandmarks() throws{
+    func getLandmarksData() throws{
         guard let url = URL(string: "https://raw.githubusercontent.com/FI-153/Landmarker/main/Backend/JSON/landmarkData.json?token=APXUQ2ULNCGOWNQXOZ3O7OTB4CWYA") else {
             throw URLError(.badURL)
         }
@@ -36,7 +36,7 @@ class LocationsDataService {
             .receive(on: DispatchQueue.main)
             .tryMap(handleOutput)
             .decode(type: [Location].self, decoder: JSONDecoder())
-            .replaceError(with: LocationsDataService.mockLocations)
+            .replaceError(with: DownloadDataManager.mockLocations)
             .sink { [weak self] returnedLocations in
                 guard let self = self else { return }
                 self.downloadedData = returnedLocations

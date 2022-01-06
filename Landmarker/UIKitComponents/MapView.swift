@@ -11,7 +11,7 @@ import MapKit
 struct MapView: UIViewRepresentable {
     let location:Location
     let is3DEnabled:Bool
-    let locationsDataService = LocationsDataService.shared
+    let locationsDataService = DownloadDataManager.shared
     
     var mapView = MKMapView(frame: .zero)
     

@@ -24,11 +24,11 @@ class LocationsManager: ObservableObject {
     ///Diplayed region on the map
     @Published var mapRegion:MKCoordinateRegion = MKCoordinateRegion()
     
-    let locationsDataService = LocationsDataService.shared
+    let locationsDataService = DownloadDataManager.shared
     
     init(){
         self.locations = []
-        self.mapLocation = LocationsDataService.mockLocations[0]
+        self.mapLocation = DownloadDataManager.mockLocations[0]
         
         addSubscriberToLocations_getsDownloadedLocations()
         addSubscriberToMapLocation_selectsTheFirstLocation()
@@ -49,7 +49,7 @@ class LocationsManager: ObservableObject {
                 if let firstLocation = downloadedLocations.first {
                     return firstLocation
                 } else {
-                    return LocationsDataService.mockLocations.first!
+                    return DownloadDataManager.mockLocations.first!
                 }
             })
             .sink { [weak self] firstLocation in

@@ -128,6 +128,6 @@ extension LocationDetailView {
 
 struct LocationDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationDetailView(isSheetShown: .constant(true), location: LocationsDataService.mockLocations[0])
+        LocationDetailView(isSheetShown: .constant(true), location: DownloadDataManager.mockLocations[0])
     }
 }
