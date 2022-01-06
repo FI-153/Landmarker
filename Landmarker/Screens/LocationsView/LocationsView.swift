@@ -73,7 +73,7 @@ extension LocationsView{
         }
         .background(.thickMaterial)
         .cornerRadius(10)
-        .shadow(radius: 20)
+        .shadow(color: .black.opacity(0.3), radius: 20)
         
     }
     
@@ -85,7 +85,6 @@ extension LocationsView{
                 //Display the preview of only the current location
                 if locationManager.mapLocation == location {
                     LocationPreviewView(location: location, is3DShown: $vm.is3DShown, isSheetShown: $vm.isSheetShown)
-                        .shadow(color: Color.black.opacity(0.3), radius: 20)
                         .frame(maxWidth: maxWidthForIpad)
                         .frame(maxWidth: .infinity)
                         .transition(.asymmetric(
@@ -94,6 +93,7 @@ extension LocationsView{
                         )
                 }
             }
+            .shadow(color: Color.black.opacity(0.3), radius: 20)
         }
         
     }
@@ -118,6 +118,7 @@ extension LocationsView{
                     }
 
                 }
+                .shadow(color: Color.black.opacity(0.3), radius: 20)
                 
         }
         

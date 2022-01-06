@@ -11,6 +11,7 @@ import MapKit
 struct MapView: UIViewRepresentable {
     let location:Location
     let is3DEnabled:Bool
+    let locationsDataService = LocationsDataService.shared
     
     var mapView = MKMapView(frame: .zero)
     
@@ -25,21 +26,5 @@ struct MapView: UIViewRepresentable {
                                  heading: location.optimalHeading)
         
         uiView.setCamera(camera, animated: true)
-        
-        placePins()
-    }
-
-    
-    func placePins() {
-        let locations = LocationsDataService.locations
-        
-        for location in locations {
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = location.coordinates
-            annotation.title = location.name
-            
-            mapView.addAnnotation(annotation)
-        }
-        
     }
 }

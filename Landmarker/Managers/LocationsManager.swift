@@ -8,6 +8,7 @@
 import Foundation
 import MapKit
 import SwiftUI
+import Combine
 
 class LocationsManager: ObservableObject {
     ///All stored locations
@@ -22,13 +23,41 @@ class LocationsManager: ObservableObject {
     
     ///Diplayed region on the map
     @Published var mapRegion:MKCoordinateRegion = MKCoordinateRegion()
-
+    
+    let locationsDataService = LocationsDataService.shared
+    
     init(){
-        let locations = LocationsDataService.locations
-        self.locations = locations
-        self.mapLocation = locations.first!
+        self.locations = []
+        self.mapLocation = LocationsDataService.mockLocations[0]
         
-        self.updateMapRegion(to: mapLocation)
+        addSubscriberToLocations_getsDownloadedLocations()
+        addSubscriberToMapLocation_selectsTheFirstLocation()
+    }
+    
+    func addSubscriberToLocations_getsDownloadedLocations(){
+        locationsDataService.$downloadedData
+            .sink { [weak self] downloadedData in
+                guard let self = self else { return }
+                self.locations = downloadedData
+            }
+            .store(in: &locationsDataService.cancellables)
+    }
+    
+    func addSubscriberToMapLocation_selectsTheFirstLocation(){
+        locationsDataService.$downloadedData
+            .map({ (downloadedLocations: [Location]) -> Location in
+                if let firstLocation = downloadedLocations.first {
+                    return firstLocation
+                } else {
+                    return LocationsDataService.mockLocations.first!
+                }
+            })
+            .sink { [weak self] firstLocation in
+                
+                guard let self = self else { return }
+                self.mapLocation = firstLocation
+            }
+            .store(in: &locationsDataService.cancellables)
     }
 
     
