@@ -16,35 +16,52 @@ struct LocationsView: View {
     let maxWidthForIpad:CGFloat = 700
     
     var body: some View {
-        ZStack{
-            MapView(location: locationManager.mapLocation, is3DEnabled: vm.is3DShown)
-                .ignoresSafeArea()
-            
-            //Overlay of the map
-            VStack(spacing: 0){
-                header
-                    .padding()
-                    .frame(maxWidth: maxWidthForIpad)
+        
+        if locationManager.locationsDataService.isLoading {
+            loadingView
+        } else {
+            ZStack{
+                MapView(location: locationManager.mapLocation, is3DEnabled: vm.is3DShown)
+                    .ignoresSafeArea()
                 
-                Spacer()
-                
-                locationPreviewStack
-                    .frame(maxWidth: maxWidthForIpad)
-                    .overlay(alignment: .topTrailing) {
-                        toggle3dButton
-                            .padding(.horizontal)
-                    }
-                
-                
+                //Overlay of the map
+                VStack(spacing: 0){
+                    header
+                        .padding()
+                        .frame(maxWidth: maxWidthForIpad)
+                    
+                    Spacer()
+                    
+                    locationPreviewStack
+                        .frame(maxWidth: maxWidthForIpad)
+                        .overlay(alignment: .topTrailing) {
+                            toggle3dButton
+                                .padding(.horizontal)
+                        }
+                    
+                    
+                }
             }
-        }
-        .sheet(isPresented: $vm.isSheetShown) {
-            LocationDetailView(isSheetShown: $vm.isSheetShown, location: locationManager.mapLocation)
+            .sheet(isPresented: $vm.isSheetShown) {
+                LocationDetailView(isSheetShown: $vm.isSheetShown, location: locationManager.mapLocation)
+            }
         }
     }
 }
 
 extension LocationsView{
+    private var loadingView: some View {
+        ZStack {
+            Image("logo-launch")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+            
+            ProgressView()
+                .foregroundColor(.black)
+        }
+    }
+    
     private var header: some View {
         VStack {
             Text("\(locationManager.mapLocation.name), \(locationManager.mapLocation.cityName)")

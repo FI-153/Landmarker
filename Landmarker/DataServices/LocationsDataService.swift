@@ -12,6 +12,7 @@ import Combine
 class LocationsDataService {
     
     @Published var downloadedData:[Location] = []
+    @Published var isLoading = true
 
     ///Singleton instance of the class
     static let shared = LocationsDataService()
@@ -39,6 +40,7 @@ class LocationsDataService {
             .sink { [weak self] returnedLocations in
                 guard let self = self else { return }
                 self.downloadedData = returnedLocations
+                self.isLoading = false
             }
             .store(in: &cancellables)
     }

@@ -10,8 +10,6 @@
 	<dict>
 		<key>UIColorName</key>
 		<string>accent-color</string>
-		<key>UIImageName</key>
-		<string>logo-launch</string>
 		<key>UIImageRespectsSafeAreaInsets</key>
 		<false/>
 		<key>UILaunchScreen</key>
