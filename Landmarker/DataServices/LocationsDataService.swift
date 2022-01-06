@@ -28,7 +28,7 @@ class LocationsDataService {
     
     ///Downloads the landmarks from  API
     func getLandmarks() throws{
-        guard let url = URL(string: "https://api.npoint.io/6fc0a73b89a6dd862f90") else {
+        guard let url = URL(string: "https://raw.githubusercontent.com/FI-153/Landmarker/main/Backend/JSON/landmarkData.json?token=APXUQ2ULNCGOWNQXOZ3O7OTB4CWYA") else {
             throw URLError(.badURL)
         }
         
