@@ -41,7 +41,7 @@ struct Location: Identifiable, Equatable, Decodable{
         self.optimalHeading = optimalHeading
     }
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case name, cityName, latitude, longitude
         case description
         case imageNames, link, optimalDistance, optimalPitch, optimalHeading

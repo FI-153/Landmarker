@@ -13,11 +13,12 @@ struct LocationsView: View {
     @EnvironmentObject private var locationManager:LocationsManager
     @StateObject private var vm:LocationsViewModel = LocationsViewModel()
     
-    let maxWidthForIpad:CGFloat = 700
+    private let maxWidthForIpad:CGFloat = 700
+    private let locationsDataService = DownloadDataManager.shared
     
     var body: some View {
         
-        if locationManager.locationsDataService.isLoading {
+        if locationsDataService.isLoading {
             loadingView
         } else {
             ZStack{

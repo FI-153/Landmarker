@@ -24,7 +24,8 @@ class LocationsManager: ObservableObject {
     ///Diplayed region on the map
     @Published var mapRegion:MKCoordinateRegion = MKCoordinateRegion()
     
-    let locationsDataService = DownloadDataManager.shared
+    private let locationsDataService = DownloadDataManager.shared
+    private var cancellables = Set<AnyCancellable>()
     
     init(){
         self.locations = []
@@ -40,7 +41,7 @@ class LocationsManager: ObservableObject {
                 guard let self = self else { return }
                 self.locations = downloadedData
             }
-            .store(in: &locationsDataService.cancellables)
+            .store(in: &cancellables)
     }
     
     func addSubscriberToMapLocation_selectsTheFirstLocation(){
@@ -57,7 +58,7 @@ class LocationsManager: ObservableObject {
                 guard let self = self else { return }
                 self.mapLocation = firstLocation
             }
-            .store(in: &locationsDataService.cancellables)
+            .store(in: &cancellables)
     }
 
     

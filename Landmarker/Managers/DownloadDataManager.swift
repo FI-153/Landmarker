@@ -24,10 +24,10 @@ class DownloadDataManager {
         }
     }
     
-    var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
     ///Downloads the landmarks from  API
-    func getLandmarksData() throws{
+    private func getLandmarksData() throws{
         guard let url = URL(string: "https://raw.githubusercontent.com/FI-153/Landmarker/main/Backend/JSON/landmarkData.json?token=APXUQ2ULNCGOWNQXOZ3O7OTB4CWYA") else {
             throw URLError(.badURL)
         }
@@ -46,7 +46,7 @@ class DownloadDataManager {
     }
     
     ///Handles the output from the downloader
-    func handleOutput(output:URLSession.DataTaskPublisher.Output) throws -> Data {
+    private func handleOutput(output:URLSession.DataTaskPublisher.Output) throws -> Data {
         guard
             let response = output.response as? HTTPURLResponse,
             response.statusCode >= 200 && response.statusCode < 300 else {
