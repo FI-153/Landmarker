@@ -13,6 +13,9 @@ struct LocationPreviewView: View {
     @EnvironmentObject var locationManager:LocationsManager
     @Binding var is3DShown:Bool
     @Binding var isSheetShown:Bool
+    
+    let imageCacheManager = ImageCacheManager.shared
+    let downloadImageManager = DownloadImagesManager.shared
 
     var body: some View {
         HStack(alignment: .bottom, spacing: 0.0) {
@@ -36,22 +39,39 @@ struct LocationPreviewView: View {
         .padding(.horizontal)
         .padding(.bottom, 40)
     }
+    
 }
 
 extension LocationPreviewView {
+    
     private var imageSection: some View {
         ZStack{
-            if let imageName = location.imageNames.first {
-                Image(imageName)
+            if let downloadedImage = downloadImageManager.downloadedImages[location.id] {
+                Image(uiImage: downloadedImage)
                     .resizable()
                     .scaledToFill()
                     .frame(width: 100, height: 100)
                     .cornerRadius(10)
+
+            } else if let cachedImage = imageCacheManager.fetchImage(named: location.id as NSString) {
+                Image(uiImage: cachedImage)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 100, height: 100)
+                    .cornerRadius(10)
+                
+            } else {
+                ProgressView()
+                    .scaledToFill()
+                    .frame(width: 100, height: 100)
+                    .cornerRadius(10)
             }
+            
+            
         }
         .padding(6)
         .cornerRadius(10)
-
+        
     }
 
     private var titleSection: some View {

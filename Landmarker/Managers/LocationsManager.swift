@@ -17,6 +17,7 @@ class LocationsManager: ObservableObject {
     ///Current location on the map, when set the map shown is changed accordingly
     @Published var mapLocation:Location {
         didSet{
+            downloadImagesManager.downloadImage(for: mapLocation)
             updateMapRegion(to: mapLocation)
         }
     }
@@ -25,6 +26,7 @@ class LocationsManager: ObservableObject {
     @Published var mapRegion:MKCoordinateRegion = MKCoordinateRegion()
     
     private let locationsDataService = DownloadDataManager.shared
+    private let downloadImagesManager = DownloadImagesManager.shared
     private var cancellables = Set<AnyCancellable>()
     
     init(){
