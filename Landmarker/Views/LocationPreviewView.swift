@@ -43,28 +43,27 @@ struct LocationPreviewView: View {
 }
 
 class LocationPreviewViewModel:ObservableObject {
-    @Published var previewImage:UIImage?
     
     let location:Location
-    let downloadImageManager = DownloadImagesManager.shared
-    var cancellables = Set<AnyCancellable>()
-    
+
     @Binding var is3DShown:Bool
     @Binding var isSheetShown:Bool
-    
     init(location:Location, is3DShown:Binding<Bool>, isSheetShown:Binding<Bool>){
         self.location = location
         self._is3DShown = is3DShown
         self._isSheetShown = isSheetShown
         
         downloadImageManager.downloadImages(for: location)
-        addSubscriber()
+        addSubscriberToPreviewImage()
     }
     
-    func addSubscriber(){
+    @Published var thumbnailImage:UIImage?
+    let downloadImageManager = DownloadImagesManager.shared
+    var cancellables = Set<AnyCancellable>()
+    func addSubscriberToPreviewImage(){
         downloadImageManager.$downloadedThumbnails.sink { downloadedImage in
             if let image = downloadedImage[self.location.id] {
-                self.previewImage = image
+                self.thumbnailImage = image
             }
         }
         .store(in: &cancellables) 
@@ -76,7 +75,7 @@ extension LocationPreviewView {
     private var imageSection: some View {
         ZStack{
             Group{
-                if let image = vm.previewImage {
+                if let image = vm.thumbnailImage {
                     Image(uiImage: image)
                 } else {
                     ProgressView()
