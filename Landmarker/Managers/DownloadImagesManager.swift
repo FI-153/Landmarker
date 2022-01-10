@@ -46,10 +46,7 @@ class DownloadImagesManager:ObservableObject {
     }
     
     func downloadThumbails(for locations: [Location]){
-        print("entered")
         for location in locations {
-            print("Downloading for \(location.id)")
-            
             guard let url = URL(string: location.thumbnailImage) else {
                 return
             }
@@ -63,11 +60,9 @@ class DownloadImagesManager:ObservableObject {
                     
                     if let validDownloadedImage = downloadedImage {
                         self.downloadedThumbnails[location.id] = validDownloadedImage
-                        print("Downloaded for \(location.id)")
                     }
                 }
                 .store(in: &cancellables)
-
         }
     }
     
