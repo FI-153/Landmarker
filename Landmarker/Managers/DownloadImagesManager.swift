@@ -18,8 +18,9 @@ class DownloadImagesManager:ObservableObject {
     var imageCacheManager = ImageCacheManager.shared
     
     @Published var downloadedImages:[String: UIImage] = [:]
+    @Published var downloadedThumbnails:[String: UIImage] = [:]
     
-    func downloadImage(for location: Location){
+    func downloadImages(for location: Location){
         
         for locationImageUrl in location.imageNames {
             
@@ -41,6 +42,36 @@ class DownloadImagesManager:ObservableObject {
                 }
                 .store(in: &cancellables)
         }
+        
+    }
+    
+    func downloadThumbails(for locations: [Location]){
+        print("entered")
+        for location in locations {
+            print("Downloading for \(location.id)")
+            
+            guard let url = URL(string: location.thumbnailImage) else {
+                return
+            }
+            
+            URLSession.shared.dataTaskPublisher(for: url)
+                .map { UIImage(data: $0.data) }
+                .receive(on: DispatchQueue.main)
+                .sink { _ in
+                } receiveValue: { [weak self] downloadedImage in
+                    guard let self = self else { return }
+                    
+                    if let validDownloadedImage = downloadedImage {
+                        self.downloadedThumbnails[location.id] = validDownloadedImage
+                        print("Downloaded for \(location.id)")
+                    }
+                }
+                .store(in: &cancellables)
+
+        }
+    }
+    
+    func downloadThumbnails(){
         
     }
     

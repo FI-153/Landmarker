@@ -32,6 +32,8 @@ class DownloadDataManager {
             throw URLError(.badURL)
         }
         
+        let downloadImagesManager = DownloadImagesManager.shared
+        
         URLSession.shared.dataTaskPublisher(for: url)
             .receive(on: DispatchQueue.main)
             .tryMap(handleOutput)
@@ -39,7 +41,11 @@ class DownloadDataManager {
             .replaceError(with: DownloadDataManager.mockLocations)
             .sink { [weak self] returnedLocations in
                 guard let self = self else { return }
+                
                 self.downloadedData = returnedLocations
+                
+                downloadImagesManager.downloadThumbails(for: returnedLocations)
+                
                 self.isLoading = false
             }
             .store(in: &cancellables)
@@ -67,6 +73,7 @@ class DownloadDataManager {
                 "",
                 "",
             ],
+            thumbnailImage: "",
             link: "",
             optimalDistance: 1200,
             optimalPitch: 80,

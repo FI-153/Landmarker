@@ -23,18 +23,20 @@ struct Location: Identifiable, Equatable, Decodable{
     let coordinates:CLLocationCoordinate2D
     let description:String
     let imageNames:[String]
+    let thumbnailImage:String
     let link:String
     
     let optimalDistance:CLLocationDistance
     let optimalPitch:CGFloat
     let optimalHeading:CLLocationDirection
     
-    init(name: String, cityName: String, coordinates: CLLocationCoordinate2D, description: String, imageNames: [String], link: String, optimalDistance: CLLocationDistance, optimalPitch: CGFloat, optimalHeading: CLLocationDirection) {
+    init(name: String, cityName: String, coordinates: CLLocationCoordinate2D, description: String, imageNames: [String], thumbnailImage:String, link: String, optimalDistance: CLLocationDistance, optimalPitch: CGFloat, optimalHeading: CLLocationDirection) {
         self.name = name
         self.cityName = cityName
         self.coordinates = coordinates
         self.description = description
         self.imageNames = imageNames
+        self.thumbnailImage = thumbnailImage
         self.link = link
         self.optimalDistance = optimalDistance
         self.optimalPitch = optimalPitch
@@ -44,7 +46,7 @@ struct Location: Identifiable, Equatable, Decodable{
     private enum CodingKeys: String, CodingKey {
         case name, cityName, latitude, longitude
         case description
-        case imageNames, link, optimalDistance, optimalPitch, optimalHeading
+        case imageNames, thumbnailImage, link, optimalDistance, optimalPitch, optimalHeading
     }
     
     init(from decoder: Decoder) throws {
@@ -59,6 +61,7 @@ struct Location: Identifiable, Equatable, Decodable{
         
         self.description = try! container.decode(String.self, forKey: .description)
         self.imageNames = try! container.decode([String].self, forKey: .imageNames)
+        self.thumbnailImage = try! container.decode(String.self, forKey: .thumbnailImage)
         self.link = try! container.decode(String.self, forKey: .link)
         self.optimalDistance = try! container.decode(CLLocationDistance.self, forKey: .optimalDistance)
         self.optimalPitch = try! container.decode(CGFloat.self, forKey: .optimalPitch)

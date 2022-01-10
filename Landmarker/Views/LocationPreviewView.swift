@@ -6,17 +6,17 @@
 //
 
 import SwiftUI
+import Combine
 
 struct LocationPreviewView: View {
-    let location:Location
 
     @EnvironmentObject var locationManager:LocationsManager
-    @Binding var is3DShown:Bool
-    @Binding var isSheetShown:Bool
-    
-    let imageCacheManager = ImageCacheManager.shared
-    let downloadImageManager = DownloadImagesManager.shared
+    @StateObject var vm:LocationPreviewViewModel
 
+    internal init(location: Location, is3DShown: Binding<Bool>, isSheetShown:Binding<Bool>) {
+        self._vm = StateObject(wrappedValue: LocationPreviewViewModel(location: location, is3DShown: is3DShown, isSheetShown: isSheetShown))
+    }
+    
     var body: some View {
         HStack(alignment: .bottom, spacing: 0.0) {
             VStack(alignment: .leading, spacing: 16.0) {
@@ -42,45 +42,62 @@ struct LocationPreviewView: View {
     
 }
 
+class LocationPreviewViewModel:ObservableObject {
+    @Published var previewImage:UIImage?
+    
+    let location:Location
+    let downloadImageManager = DownloadImagesManager.shared
+    var cancellables = Set<AnyCancellable>()
+    
+    @Binding var is3DShown:Bool
+    @Binding var isSheetShown:Bool
+    
+    init(location:Location, is3DShown:Binding<Bool>, isSheetShown:Binding<Bool>){
+        self.location = location
+        self._is3DShown = is3DShown
+        self._isSheetShown = isSheetShown
+        
+        downloadImageManager.downloadImages(for: location)
+        addSubscriber()
+    }
+    
+    func addSubscriber(){
+        downloadImageManager.$downloadedThumbnails.sink { downloadedImage in
+            if let image = downloadedImage[self.location.id] {
+                self.previewImage = image
+            }
+        }
+        .store(in: &cancellables) 
+    }
+}
+
 extension LocationPreviewView {
     
     private var imageSection: some View {
         ZStack{
-            if let downloadedImage = downloadImageManager.downloadedImages[location.id] {
-                Image(uiImage: downloadedImage)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 100, height: 100)
-                    .cornerRadius(10)
-
-            } else if let cachedImage = imageCacheManager.fetchImage(named: location.id as NSString) {
-                Image(uiImage: cachedImage)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 100, height: 100)
-                    .cornerRadius(10)
-                
-            } else {
-                ProgressView()
-                    .scaledToFill()
-                    .frame(width: 100, height: 100)
-                    .cornerRadius(10)
+            Group{
+                if let image = vm.previewImage {
+                    Image(uiImage: image)
+                } else {
+                    ProgressView()
+                }
             }
-            
-            
+            .scaledToFill()
+            .frame(width: 100, height: 100)
+            .cornerRadius(10)
         }
         .padding(6)
         .cornerRadius(10)
         
     }
-
+    
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 6.0) {
-            Text(location.name)
+            Text(vm.location.name)
                 .font(.title2)
                 .bold()
             
-            Text(location.cityName)
+            Text(vm.location.cityName)
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }
@@ -89,7 +106,7 @@ extension LocationPreviewView {
     
     private var learnMoreButton: some View {
         Button {
-            isSheetShown.toggle()
+            vm.isSheetShown.toggle()
         } label: {
             Text("Learn more")
                 .font(.headline)

@@ -17,7 +17,6 @@ class LocationsManager: ObservableObject {
     ///Current location on the map, when set the map shown is changed accordingly
     @Published var mapLocation:Location {
         didSet{
-            downloadImagesManager.downloadImage(for: mapLocation)
             updateMapRegion(to: mapLocation)
         }
     }
