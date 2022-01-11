@@ -77,6 +77,7 @@ extension LocationPreviewView {
             Group{
                 if let image = vm.thumbnailImage {
                     Image(uiImage: image)
+                        .resizable()
                 } else {
                     ProgressView()
                 }

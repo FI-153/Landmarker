@@ -37,6 +37,7 @@ class DownloadImagesManager:ObservableObject {
                     
                     if let validDownloadedImage = downloadedImage {
                         self.downloadedImages[location.id] = validDownloadedImage
+                        
                         self.imageCacheManager.addImage(named: location.id as NSString, image: validDownloadedImage)
                     }
                 }
@@ -60,6 +61,9 @@ class DownloadImagesManager:ObservableObject {
                     
                     if let validDownloadedImage = downloadedImage {
                         self.downloadedThumbnails[location.id] = validDownloadedImage
+                        
+                        self.imageCacheManager.addImage(named: location.id as NSString, image: validDownloadedImage)
+
                     }
                 }
                 .store(in: &cancellables)

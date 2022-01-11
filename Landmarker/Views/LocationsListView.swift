@@ -12,6 +12,8 @@ struct LocationsListView: View {
     @EnvironmentObject var locationManager:LocationsManager
     @Binding var isLocationListShown:Bool
     
+    let imageCacheManager = ImageCacheManager.shared
+    
     var body: some View {
         
         ScrollView(showsIndicators: false){
@@ -40,13 +42,18 @@ struct LocationsListView: View {
 extension LocationsListView {
     private func listRowView(location:Location) -> some View{
         HStack{
-            if let imageName = location.imageNames.first {
-                Image(imageName)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 45, height: 45)
-                    .cornerRadius(10)
+            
+            Group{
+                if let imageName = imageCacheManager.fetchImage(named: location.id as NSString){
+                    Image(uiImage: imageName)
+                        .resizable()
+                } else {
+                    ProgressView()
+                }
             }
+            .scaledToFill()
+            .frame(width: 45, height: 45)
+            .cornerRadius(10)
             
             VStack(alignment: .leading) {
                 Text(location.name)
