@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import Combine
 
 struct LocationDetailView: View {
     
@@ -44,11 +45,17 @@ struct LocationDetailView: View {
 extension LocationDetailView {
     private var imageSection: some View {
         TabView{
-            ForEach(vm.location.imageNames, id: \.self){ imageName in
-                Image(imageName)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? nil : UIScreen.main.bounds.width)
+            ForEach(vm.images, id: \.self){ image in
+                
+                if let imageName = image {
+                    Image(uiImage: imageName)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? nil : UIScreen.main.bounds.width)
+                    
+                } else {
+                    ProgressView()
+                }
             }
         }
         .frame(height: 500)

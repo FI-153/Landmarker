@@ -74,9 +74,4 @@ class DownloadImagesManager:ObservableObject {
         }
     }
     
-    func downloadThumbnails(){
-        
-    }
-    
-    
 }
