@@ -14,6 +14,7 @@ class LocationsViewModel: ObservableObject {
     @Published var isLocationListShown = false
     @Published var is3DShown = true
     @Published var isSheetShown = false
+    @Published var centerImage = false
     
     var arrowRotationAmount:CGFloat {
         isLocationListShown ? -180 : 0

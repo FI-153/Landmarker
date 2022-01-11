@@ -38,7 +38,7 @@ class DownloadDataManager {
             .receive(on: DispatchQueue.main)
             .tryMap(handleOutput)
             .decode(type: [Location].self, decoder: JSONDecoder())
-            .replaceError(with: DownloadDataManager.mockLocations)
+            .replaceError(with: Location.mockLocations)
             .sink { [weak self] returnedLocations in
                 guard let self = self else { return }
                 
@@ -60,24 +60,5 @@ class DownloadDataManager {
             }
         return output.data
     }
-    
-    ///Mock data to be used during development
-    static let mockLocations: [Location] = [
-        Location(
-            name: "Mock",
-            cityName: "mockCity",
-            coordinates: CLLocationCoordinate2D(latitude: 41.8902, longitude: 12.4922),
-            description: ".",
-            imageNames: [
-                "",
-                "",
-                "",
-            ],
-            thumbnailImage: "",
-            link: "",
-            optimalDistance: 1200,
-            optimalPitch: 80,
-            optimalHeading: 0)
-    ]
     
 }

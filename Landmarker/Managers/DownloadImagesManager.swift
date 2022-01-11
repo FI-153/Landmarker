@@ -38,6 +38,7 @@ class DownloadImagesManager:ObservableObject {
                     if let validDownloadedImage = downloadedImage {
                         self.downloadedImages[location.id] = validDownloadedImage
                         
+                        //Add image to cache
                         self.imageCacheManager.addImage(named: location.id as NSString, image: validDownloadedImage)
                     }
                 }
@@ -62,6 +63,7 @@ class DownloadImagesManager:ObservableObject {
                     if let validDownloadedImage = downloadedImage {
                         self.downloadedThumbnails[location.id] = validDownloadedImage
                         
+                        //Add image to cache
                         self.imageCacheManager.addImage(named: location.id as NSString, image: validDownloadedImage)
 
                     }

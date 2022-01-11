@@ -69,5 +69,25 @@ struct Location: Identifiable, Equatable, Decodable{
         
     }
     
+    ///Mock data to be used during development
+    static let mockLocations: [Location] = [
+        Location(
+            name: "Mock",
+            cityName: "mockCity",
+            coordinates: CLLocationCoordinate2D(latitude: 41.8902, longitude: 12.4922),
+            description: ".",
+            imageNames: [
+                "",
+                "",
+                "",
+            ],
+            thumbnailImage: "",
+            link: "",
+            optimalDistance: 1200,
+            optimalPitch: 80,
+            optimalHeading: 0)
+    ]
+
+    
     
 }

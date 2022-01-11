@@ -166,8 +166,8 @@
 		A192F4AF277A466C001516FF /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				A12879B42777A64E00584FEC /* DownloadDataManager.swift */,
 				A192F4AD277A4213001516FF /* LocationsManager.swift */,
+				A12879B42777A64E00584FEC /* DownloadDataManager.swift */,
 				A11467E9278A267200DA615D /* DownloadImagesManager.swift */,
 				A11467EB278A27BA00DA615D /* ImageCacheManager.swift */,
 			);

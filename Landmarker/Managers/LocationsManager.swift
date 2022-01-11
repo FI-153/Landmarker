@@ -30,7 +30,7 @@ class LocationsManager: ObservableObject {
     
     init(){
         self.locations = []
-        self.mapLocation = DownloadDataManager.mockLocations[0]
+        self.mapLocation = Location.mockLocations[0]
         
         addSubscriberToLocations_getsDownloadedLocations()
         addSubscriberToMapLocation_selectsTheFirstLocation()
@@ -51,7 +51,7 @@ class LocationsManager: ObservableObject {
                 if let firstLocation = downloadedLocations.first {
                     return firstLocation
                 } else {
-                    return DownloadDataManager.mockLocations.first!
+                    return Location.mockLocations.first!
                 }
             })
             .sink { [weak self] firstLocation in

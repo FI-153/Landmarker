@@ -16,15 +16,13 @@ struct LocationsView: View {
     private let maxWidthForIpad:CGFloat = 700
     private let locationsDataService = DownloadDataManager.shared
     
-    @State var centerImage = false
-    
     var body: some View {
         
         if locationsDataService.isLoading {
             loadingView
         } else {
             ZStack{
-                MapView(location: locationManager.mapLocation, is3DEnabled: vm.is3DShown, centerImage: self.centerImage)
+                MapView(location: locationManager.mapLocation, is3DEnabled: vm.is3DShown, centerImage: vm.centerImage)
                     .ignoresSafeArea()
                 
                 //Overlay of the map
@@ -152,7 +150,7 @@ extension LocationsView{
     
     private var reCenterImage: some View {
         Button {
-            centerImage.toggle()
+            vm.centerImage.toggle()
         } label: {
             Image("")
                 .sheetButtonImage(isSFSymbol: true)

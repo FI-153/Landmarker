@@ -105,7 +105,7 @@ extension LocationPreviewView {
 struct LocationPreviewView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            LocationPreviewView(location: DownloadDataManager.mockLocations[0], is3DShown: .constant(false), isSheetShown: .constant(false))
+            LocationPreviewView(location: Location.mockLocations[0], is3DShown: .constant(false), isSheetShown: .constant(false))
         }
     }
 }

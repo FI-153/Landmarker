@@ -12,7 +12,7 @@ struct LocationsListView: View {
     @EnvironmentObject var locationManager:LocationsManager
     @Binding var isLocationListShown:Bool
     
-    let imageCacheManager = ImageCacheManager.shared
+    let downloadImagesManager = DownloadImagesManager.shared
     
     var body: some View {
         
@@ -44,12 +44,13 @@ extension LocationsListView {
         HStack{
             
             Group{
-                if let imageName = imageCacheManager.fetchImage(named: location.id as NSString){
+                if let imageName = downloadImagesManager.downloadedThumbnails[location.id]{
                     Image(uiImage: imageName)
                         .resizable()
                 } else {
                     ProgressView()
                 }
+                
             }
             .scaledToFill()
             .frame(width: 45, height: 45)
