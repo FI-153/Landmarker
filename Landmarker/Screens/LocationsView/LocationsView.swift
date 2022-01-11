@@ -16,13 +16,15 @@ struct LocationsView: View {
     private let maxWidthForIpad:CGFloat = 700
     private let locationsDataService = DownloadDataManager.shared
     
+    @State var centerImage = false
+    
     var body: some View {
         
         if locationsDataService.isLoading {
             loadingView
         } else {
             ZStack{
-                MapView(location: locationManager.mapLocation, is3DEnabled: vm.is3DShown)
+                MapView(location: locationManager.mapLocation, is3DEnabled: vm.is3DShown, centerImage: self.centerImage)
                     .ignoresSafeArea()
                 
                 //Overlay of the map
@@ -36,8 +38,14 @@ struct LocationsView: View {
                     locationPreviewStack
                         .frame(maxWidth: maxWidthForIpad)
                         .overlay(alignment: .topTrailing) {
-                            toggle3dButton
-                                .padding(.horizontal)
+                            HStack{
+                                reCenterImage
+                                    .padding(.trailing)
+                                
+                                toggle3dButton
+                            }
+                            .padding(.horizontal)
+                            
                         }
                     
                     
@@ -141,6 +149,24 @@ extension LocationsView{
         }
         
     }
+    
+    private var reCenterImage: some View {
+        Button {
+            centerImage.toggle()
+        } label: {
+            Image("")
+                .sheetButtonImage(isSFSymbol: true)
+                .overlay{
+                    Image(systemName: "location.north.line.fill")
+                        .foregroundColor(.primary)
+
+                }
+                .shadow(color: Color.black.opacity(0.3), radius: 20)
+                
+        }
+        
+    }
+
 }
 
 
