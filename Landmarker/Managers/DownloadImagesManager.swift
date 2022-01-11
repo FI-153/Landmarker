@@ -11,15 +11,15 @@ import UIKit
 
 class DownloadImagesManager:ObservableObject {
     
+    ///Singleton instance of the DownloadImagesManager
     static let shared = DownloadImagesManager()
     private init(){}
     
     var cancellables = Set<AnyCancellable>()
     var imageCacheManager = ImageCacheManager.shared
     
+    ///Publishes all downloaded images identified by the Location's id
     @Published var downloadedImages:[String: UIImage] = [:]
-    @Published var downloadedThumbnails:[String: UIImage] = [:]
-    
     func downloadImages(for location: Location){
         
         for locationImageUrl in location.imageNames {
@@ -47,6 +47,8 @@ class DownloadImagesManager:ObservableObject {
         
     }
     
+    ///Publishes all downloaded thumbnails identified by the Location's id
+    @Published var downloadedThumbnails:[String: UIImage] = [:]
     func downloadThumbails(for locations: [Location]){
         for location in locations {
             guard let url = URL(string: location.thumbnailImage) else {

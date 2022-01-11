@@ -23,21 +23,22 @@ class LocationsManager: ObservableObject {
     
     ///Diplayed region on the map
     @Published var mapRegion:MKCoordinateRegion = MKCoordinateRegion()
-    
-    private let locationsDataService = DownloadDataManager.shared
-    private let downloadImagesManager = DownloadImagesManager.shared
-    private var cancellables = Set<AnyCancellable>()
-    
+
     init(){
         self.locations = []
+        
+        //Set the map location to a temporary location -> will be updated when data is downloaded
         self.mapLocation = Location.mockLocations[0]
         
         addSubscriberToLocations_getsDownloadedLocations()
         addSubscriberToMapLocation_selectsTheFirstLocation()
     }
     
+    private var cancellables = Set<AnyCancellable>()
+    private let downloadDataManager = DownloadDataManager.shared
+    
     func addSubscriberToLocations_getsDownloadedLocations(){
-        locationsDataService.$downloadedData
+        downloadDataManager.$downloadedData
             .sink { [weak self] downloadedData in
                 guard let self = self else { return }
                 self.locations = downloadedData
@@ -46,7 +47,7 @@ class LocationsManager: ObservableObject {
     }
     
     func addSubscriberToMapLocation_selectsTheFirstLocation(){
-        locationsDataService.$downloadedData
+        downloadDataManager.$downloadedData
             .map({ (downloadedLocations: [Location]) -> Location in
                 if let firstLocation = downloadedLocations.first {
                     return firstLocation

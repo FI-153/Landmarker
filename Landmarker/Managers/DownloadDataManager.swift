@@ -11,7 +11,10 @@ import Combine
 
 class DownloadDataManager {
     
+    ///Publishes all downloaded locations
     @Published var downloadedData:[Location] = []
+    
+    ///Controls the loading view
     @Published var isLoading = true
 
     ///Singleton instance of the class
@@ -42,10 +45,13 @@ class DownloadDataManager {
             .sink { [weak self] returnedLocations in
                 guard let self = self else { return }
                 
+                //Publish downloaded data
                 self.downloadedData = returnedLocations
                 
+                //Once the data has been downloaded procede with downloading thumbnails
                 downloadImagesManager.downloadThumbails(for: returnedLocations)
                 
+                //Dismiss the loading view
                 self.isLoading = false
             }
             .store(in: &cancellables)
