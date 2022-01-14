@@ -24,7 +24,6 @@ class LocationDetailViewModel: ObservableObject {
         _isSheetShown = isSheetShown
         self.location = location
         
-        downloadImagesManager.downloadImages(for: location)
         addSubscriberToImages()
     }
     

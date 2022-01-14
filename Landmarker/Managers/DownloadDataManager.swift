@@ -51,6 +51,9 @@ class DownloadDataManager {
                 //Once the data has been downloaded procede with downloading thumbnails
                 downloadImagesManager.downloadThumbails(for: returnedLocations)
                 
+                //Download the images describing the landmarks
+                downloadImagesManager.downloadImages(for: returnedLocations)
+                
                 //Dismiss the loading view
                 self.isLoading = false
             }

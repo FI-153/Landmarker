@@ -20,7 +20,6 @@ class LocationPreviewViewModel:ObservableObject {
         self._is3DShown = is3DShown
         self._isSheetShown = isSheetShown
         
-        downloadImageManager.downloadImages(for: location)
         addSubscriberToPreviewImage()
     }
     

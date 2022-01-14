@@ -17,32 +17,31 @@ class DownloadImagesManager:ObservableObject {
     
     var cancellables = Set<AnyCancellable>()
     var imageCacheManager = ImageCacheManager.shared
-    
+        
     ///Publishes all downloaded images identified by the Location's id
     @Published var downloadedImages:[String: UIImage] = [:]
-    func downloadImages(for location: Location){
+    func downloadImages(for locations: [Location]){
         
-        for locationImageUrl in location.imageNames {
-            
-            guard let url = URL(string: locationImageUrl) else {
-                return
-            }
-            
-            URLSession.shared.dataTaskPublisher(for: url)
-                .map { UIImage(data: $0.data) }
-                .receive(on: DispatchQueue.main)
-                .sink { _ in
-                } receiveValue: { [weak self] downloadedImage in
-                    guard let self = self else { return }
-                    
-                    if let validDownloadedImage = downloadedImage {
-                        self.downloadedImages[location.id + UUID().uuidString] = validDownloadedImage
-                        
-                        //Add image to cache
-                        //self.imageCacheManager.addImage(named: location.id as NSString, image: validDownloadedImage)
-                    }
+        for location in locations {
+            for locationImageUrl in location.imageNames {
+                
+                guard let url = URL(string: locationImageUrl) else {
+                    return
                 }
-                .store(in: &cancellables)
+                
+                URLSession.shared.dataTaskPublisher(for: url)
+                    .map { UIImage(data: $0.data) }
+                    .receive(on: DispatchQueue.main)
+                    .sink { _ in
+                    } receiveValue: { [weak self] downloadedImage in
+                        guard let self = self else { return }
+                        
+                        if let validDownloadedImage = downloadedImage {
+                            self.downloadedImages[location.id + UUID().uuidString] = validDownloadedImage
+                        }
+                    }
+                    .store(in: &cancellables)
+            }
         }
         
     }
