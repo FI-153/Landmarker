@@ -31,7 +31,7 @@ class DownloadDataManager {
     
     ///Downloads the landmarks from  API
     private func getLandmarksData() throws{
-        guard let url = URL(string: "https://raw.githubusercontent.com/FI-153/LandmarkerBackend/main/JSON/landmarkData.json?token=GHSAT0AAAAAABO2LV7NCDAO4MR3KUCVF3VOYPB2S6Q") else {
+        guard let url = URL(string: "https://raw.githubusercontent.com/FI-153/LandmarkerBackend/main/JSON/landmarkData.json?token=GHSAT0AAAAAABO2LV7MHP2MBO34SF32KX2AYPLCCWQ") else {
             throw URLError(.badURL)
         }
         
