@@ -45,17 +45,18 @@ struct LocationDetailView: View {
 extension LocationDetailView {
     private var imageSection: some View {
         TabView{
-            ForEach(vm.images, id: \.self){ image in
-                
-                if let imageName = image {
-                    Image(uiImage: imageName)
+            
+            if !vm.images.isEmpty{
+                ForEach(Array(vm.images.values), id: \.self){ image in
+                    
+                    Image(uiImage: image)
                         .resizable()
                         .scaledToFill()
                         .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? nil : UIScreen.main.bounds.width)
-                    
-                } else {
-                    ProgressView()
                 }
+                
+            } else {
+                ProgressView()
             }
         }
         .frame(height: 500)

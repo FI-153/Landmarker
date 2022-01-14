@@ -36,10 +36,10 @@ class DownloadImagesManager:ObservableObject {
                     guard let self = self else { return }
                     
                     if let validDownloadedImage = downloadedImage {
-                        self.downloadedImages[location.id] = validDownloadedImage
+                        self.downloadedImages[location.id + UUID().uuidString] = validDownloadedImage
                         
                         //Add image to cache
-                        self.imageCacheManager.addImage(named: location.id as NSString, image: validDownloadedImage)
+                        //self.imageCacheManager.addImage(named: location.id as NSString, image: validDownloadedImage)
                     }
                 }
                 .store(in: &cancellables)
@@ -66,7 +66,7 @@ class DownloadImagesManager:ObservableObject {
                         self.downloadedThumbnails[location.id + UUID().uuidString] = validDownloadedImage
                         
                         //Add image to cache
-                        self.imageCacheManager.addImage(named: location.id as NSString, image: validDownloadedImage)
+                        //self.imageCacheManager.addImage(named: location.id as NSString, image: validDownloadedImage)
 
                     }
                 }

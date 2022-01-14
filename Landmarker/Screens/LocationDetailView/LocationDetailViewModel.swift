@@ -18,24 +18,33 @@ class LocationDetailViewModel: ObservableObject {
     let downloadImagesManager = DownloadImagesManager.shared
     
     var cancellables = Set<AnyCancellable>()
-    @Published var images:[UIImage?] = []
+    var images:[String:UIImage] = [:]
+    
     init(isSheetShown: Binding<Bool>, location:Location) {
         _isSheetShown = isSheetShown
         self.location = location
         
-        addSubscriberToImages()
         downloadImagesManager.downloadImages(for: location)
+        addSubscriberToImages()
     }
-
+    
     func addSubscriberToImages(){
-        downloadImagesManager.$downloadedImages.sink { image in
-            if let imageName = image[self.location.id] {
-                self.images.append(imageName)
+        downloadImagesManager.$downloadedImages.sink { downloadedImages in
+            
+            for downloadedImage in downloadedImages {
+                
+                if !self.images.contains(where: { (key: String, _: UIImage) in
+                    key == downloadedImage.key
+                }) {
+                    self.images[downloadedImage.key] = downloadedImage.value
+                }
+                
             }
+            
         }
         .store(in: &cancellables)
     }
-
+    
 }
 
 
