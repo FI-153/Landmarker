@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
+import Combine
 
 struct LocationsListView: View {
     
     @EnvironmentObject var locationManager:LocationsManager
+    @StateObject var vm = LocationListViewModel()
     @Binding var isLocationListShown:Bool
-    
-    let downloadImagesManager = DownloadImagesManager.shared
-    
+        
     var body: some View {
         
         ScrollView(showsIndicators: false){
@@ -44,8 +44,11 @@ extension LocationsListView {
         HStack{
             
             Group{
-                if let imageName = downloadImagesManager.downloadedThumbnails[location.id]{
-                    Image(uiImage: imageName)
+                
+                if let image = vm.thumbnails.first(where: { (key: String, _: UIImage) in
+                    key.hasPrefix(location.id)
+                }) {
+                    Image(uiImage: image.value)
                         .resizable()
                 } else {
                     ProgressView()
@@ -82,6 +85,23 @@ extension LocationsListView {
     }
 }
 
+class LocationListViewModel:ObservableObject {
+    let downloadImagesManager = DownloadImagesManager.shared
+    var cancellables = Set<AnyCancellable>()
+    
+    @Published var thumbnails: [String:UIImage] = [:]
+    init(){
+        addSubscriberToPreviewImage()
+    }
+    
+    func addSubscriberToPreviewImage(){
+        downloadImagesManager.$downloadedThumbnails.sink { downloadedImages in
+            self.thumbnails = downloadedImages
+        }
+        .store(in: &cancellables)
+    }
+    
+}
 
 
 struct LocationsListView_Previews: PreviewProvider {

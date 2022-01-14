@@ -23,8 +23,8 @@ class LocationDetailViewModel: ObservableObject {
         _isSheetShown = isSheetShown
         self.location = location
         
-        downloadImagesManager.downloadImages(for: location)
         addSubscriberToImages()
+        downloadImagesManager.downloadImages(for: location)
     }
 
     func addSubscriberToImages(){

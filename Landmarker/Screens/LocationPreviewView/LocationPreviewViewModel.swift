@@ -29,8 +29,14 @@ class LocationPreviewViewModel:ObservableObject {
     var cancellables = Set<AnyCancellable>()
     func addSubscriberToPreviewImage(){
         downloadImageManager.$downloadedThumbnails.sink { downloadedImage in
-            if let image = downloadedImage[self.location.id] {
-                self.thumbnailImage = image
+            
+            for key in downloadedImage.keys {
+                if key.hasPrefix(self.location.id) {
+                    if let image = downloadedImage[key] {
+                        self.thumbnailImage = image
+                    }
+                    
+                }
             }
         }
         .store(in: &cancellables)

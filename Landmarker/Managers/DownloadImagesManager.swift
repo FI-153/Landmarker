@@ -63,7 +63,7 @@ class DownloadImagesManager:ObservableObject {
                     guard let self = self else { return }
                     
                     if let validDownloadedImage = downloadedImage {
-                        self.downloadedThumbnails[location.id] = validDownloadedImage
+                        self.downloadedThumbnails[location.id + UUID().uuidString] = validDownloadedImage
                         
                         //Add image to cache
                         self.imageCacheManager.addImage(named: location.id as NSString, image: validDownloadedImage)
