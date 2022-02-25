@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A11467EA278A267200DA615D /* DownloadImagesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11467E9278A267200DA615D /* DownloadImagesManager.swift */; };
-		A11467EC278A27BA00DA615D /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11467EB278A27BA00DA615D /* ImageCacheManager.swift */; };
 		A128799F2777A46300584FEC /* LandmarkerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128799E2777A46300584FEC /* LandmarkerApp.swift */; };
 		A12879A62777A46500584FEC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A12879A52777A46500584FEC /* Preview Assets.xcassets */; };
 		A12879AD2777A4D600584FEC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A12879AC2777A4D600584FEC /* Assets.xcassets */; };
@@ -29,7 +28,6 @@
 
 /* Begin PBXFileReference section */
 		A11467E9278A267200DA615D /* DownloadImagesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImagesManager.swift; sourceTree = "<group>"; };
-		A11467EB278A27BA00DA615D /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		A128799B2777A46300584FEC /* Landmarker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Landmarker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A128799E2777A46300584FEC /* LandmarkerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkerApp.swift; sourceTree = "<group>"; };
 		A12879A52777A46500584FEC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 				A192F4AD277A4213001516FF /* LocationsManager.swift */,
 				A12879B42777A64E00584FEC /* DownloadDataManager.swift */,
 				A11467E9278A267200DA615D /* DownloadImagesManager.swift */,
-				A11467EB278A27BA00DA615D /* ImageCacheManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -255,7 +252,6 @@
 			files = (
 				A16D9E2E278DCA0000CDC0DA /* LocationPreviewViewModel.swift in Sources */,
 				A1C3BAB0277B3B0D00CB58E9 /* LocationDetailViewModel.swift in Sources */,
-				A11467EC278A27BA00DA615D /* ImageCacheManager.swift in Sources */,
 				A12879B52777A64E00584FEC /* DownloadDataManager.swift in Sources */,
 				A1EAE46D277A1EA300C6F085 /* LocationDetailView.swift in Sources */,
 				A12879BA2777A6B700584FEC /* LocationsViewModel.swift in Sources */,

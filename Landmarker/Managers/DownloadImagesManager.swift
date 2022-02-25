@@ -16,7 +16,6 @@ class DownloadImagesManager:ObservableObject {
     private init(){}
     
     var cancellables = Set<AnyCancellable>()
-    var imageCacheManager = ImageCacheManager.shared
         
     ///Publishes all downloaded images identified by the Location's id
     @Published var downloadedImages:[String: UIImage] = [:]
