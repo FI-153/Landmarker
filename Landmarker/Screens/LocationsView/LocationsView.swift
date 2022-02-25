@@ -12,52 +12,22 @@ struct LocationsView: View {
     
     @EnvironmentObject private var locationManager:LocationsManager
     @StateObject private var vm:LocationsViewModel = LocationsViewModel()
-    
-    private let maxWidthForIpad:CGFloat = 700
-    private let locationsDataService = DownloadDataManager.shared
-    
-    var body: some View {
-        
-        if locationsDataService.isLoading {
-            loadingView
-        } else {
-            ZStack{
-                MapView(location: locationManager.mapLocation, is3DEnabled: vm.is3DShown, centerImage: vm.centerImage)
-                    .ignoresSafeArea()
-                
-                //Overlay of the map
-                VStack(spacing: 0){
-                    header
-                        .padding()
-                        .frame(maxWidth: maxWidthForIpad)
-                    
-                    Spacer()
-                    
-                    locationPreviewStack
-                        .frame(maxWidth: maxWidthForIpad)
-                        .overlay(alignment: .topTrailing) {
-                            HStack{
-                                reCenterImage
-                                    .padding(.trailing)
-                                
-                                toggle3dButton
-                            }
-                            .padding(.horizontal)
-                            
-                        }
-                    
-                    
-                }
-            }
-            .sheet(isPresented: $vm.isSheetShown) {
-                LocationDetailView(isSheetShown: $vm.isSheetShown, location: locationManager.mapLocation)
-            }
-        }
-    }
+	
+	var body: some View {
+		
+		if vm.locationsDataService.isLoading {
+			showLoadingView()
+		} else {
+			showMainView()
+				.sheet(isPresented: $vm.isSheetShown) {
+					LocationDetailView(isSheetShown: $vm.isSheetShown, location: locationManager.mapLocation)
+				}
+		}
+	}
 }
 
 extension LocationsView{
-    private var loadingView: some View {
+    private func showLoadingView() -> some View {
         ZStack {
             Image("logo-launch")
                 .resizable()
@@ -68,6 +38,38 @@ extension LocationsView{
                 .foregroundColor(.black)
         }
     }
+	
+	private func showMainView() -> some View {
+		ZStack{
+			MapView(location: locationManager.mapLocation, is3DEnabled: vm.is3DShown, centerImage: vm.centerImage)
+				.ignoresSafeArea()
+			
+			//Overlay of the map
+			VStack(spacing: 0){
+				header
+					.padding()
+					.frame(maxWidth: vm.maxWidthForIpad)
+				
+				Spacer()
+				
+				locationPreviewStack
+					.frame(maxWidth: vm.maxWidthForIpad)
+					.overlay(alignment: .topTrailing) {
+						HStack{
+							centerTheMap
+								.padding(.trailing)
+							
+							toggle3dButton
+						}
+						.padding(.horizontal)
+						
+					}
+				
+				
+			}
+		}
+
+	}
     
     private var header: some View {
         VStack {
@@ -78,15 +80,7 @@ extension LocationsView{
                 .frame(maxWidth: .infinity)
                 .animation(.none, value: locationManager.mapLocation)
                 .overlay(alignment: .leading) {
-                    Button {
-                        vm.toggleLocationsList()
-                    } label: {
-                        Image(systemName: "arrow.down")
-                            .font(.headline)
-                            .foregroundColor(.primary)
-                            .padding()
-                            .rotationEffect(.degrees(vm.arrowRotationAmount))
-                    }
+					listButton
                 }
             
             //drop down menu of the locations
@@ -100,6 +94,18 @@ extension LocationsView{
         .shadow(color: .black.opacity(0.3), radius: 20)
         
     }
+	
+	private var listButton: some View {
+		Button {
+			vm.toggleLocationsList()
+		} label: {
+			Image(systemName: "arrow.down")
+				.font(.headline)
+				.foregroundColor(.primary)
+				.padding()
+				.rotationEffect(.degrees(vm.arrowRotationAmount))
+		}
+	}
     
     private var locationPreviewStack: some View {
         ZStack{
@@ -109,7 +115,7 @@ extension LocationsView{
                 //Display the preview of only the current location
                 if locationManager.mapLocation == location {
                     LocationPreviewView(location: location, is3DShown: $vm.is3DShown, isSheetShown: $vm.isSheetShown)
-                        .frame(maxWidth: maxWidthForIpad)
+						.frame(maxWidth: vm.maxWidthForIpad)
                         .frame(maxWidth: .infinity)
                         .transition(.asymmetric(
                             insertion: .move(edge: .trailing),
@@ -127,28 +133,28 @@ extension LocationsView{
             vm.toggle3D()
         } label: {
             Image("")
-                .sheetButtonImage(isSFSymbol: true)
-                .overlay{
-                    if vm.is3DShown {
-                        Image(systemName: "view.2d")
-                            .foregroundColor(.primary)
-                            .font(.headline)
-                            .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)).combined(with: .opacity))
-                    } else {
-                        Image(systemName: "view.3d")
-                            .foregroundColor(.primary)
-                            .font(.headline)
-                            .transition(.asymmetric(insertion: .move(edge: .top), removal: .move(edge: .bottom)).combined(with: .opacity))
-                    }
-
-                }
-                .shadow(color: Color.black.opacity(0.3), radius: 20)
-                
-        }
+				.sheetButtonImage(isSFSymbol: true)
+				.overlay{
+					Group{
+						if vm.is3DShown {
+							Image(systemName: "view.2d")
+								.transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)).combined(with: .opacity))
+						} else {
+							Image(systemName: "view.3d")
+								.transition(.asymmetric(insertion: .move(edge: .top), removal: .move(edge: .bottom)).combined(with: .opacity))
+						}
+					}
+					.foregroundColor(.primary)
+					.font(.headline)
+					
+				}
+				.shadow(color: Color.black.opacity(0.3), radius: 20)
+			
+		}
         
     }
     
-    private var reCenterImage: some View {
+    private var centerTheMap: some View {
         Button {
             vm.centerImage.toggle()
         } label: {
@@ -165,13 +171,4 @@ extension LocationsView{
         
     }
 
-}
-
-
-
-struct Previews_LocationsView_Previews: PreviewProvider {
-    static var previews: some View {
-        LocationsView()
-            .environmentObject(LocationsManager())
-    }
 }
