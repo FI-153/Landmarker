@@ -31,7 +31,7 @@ class DownloadDataManager {
     
     ///Downloads the landmarks from  API
     private func getLandmarksData() throws{
-        guard let url = URL(string: "https://raw.githubusercontent.com/FI-153/LandmarkerBackend/main/JSON/landmarkData.json?token=GHSAT0AAAAAABO2LV7MHP2MBO34SF32KX2AYPLCCWQ") else {
+        guard let url = URL(string: "https://raw.githubusercontent.com/FI-153/LandmarkerBackend/f32c6e8d5115b8759f0a93aed1d044c685b20bd4/JSON/landmarkData.json") else {
             throw URLError(.badURL)
         }
         
@@ -51,11 +51,12 @@ class DownloadDataManager {
                 //Once the data has been downloaded procede with downloading thumbnails
                 downloadImagesManager.downloadThumbails(for: returnedLocations)
                 
+                //Dismiss the loading view
+                self.isLoading = false
+
                 //Download the images describing the landmarks
                 downloadImagesManager.downloadImages(for: returnedLocations)
                 
-                //Dismiss the loading view
-                self.isLoading = false
             }
             .store(in: &cancellables)
     }
