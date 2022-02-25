@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
-    let location:Location
+    let location:Landmark
     let is3DEnabled:Bool
     let centerImage:Bool
     let locationsDataService = DownloadDataManager.shared

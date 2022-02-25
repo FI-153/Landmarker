@@ -12,10 +12,10 @@ import Combine
 
 class LocationsManager: ObservableObject {
     ///All stored locations
-    @Published var locations:[Location]
+    @Published var locations:[Landmark]
 
     ///Current location on the map, when set the map shown is changed accordingly
-    @Published var mapLocation:Location {
+    @Published var mapLocation:Landmark {
         didSet{
             updateMapRegion(to: mapLocation)
         }
@@ -28,7 +28,7 @@ class LocationsManager: ObservableObject {
         self.locations = []
         
         //Set the map location to a temporary location -> will be updated when data is downloaded
-        self.mapLocation = Location.mockLocations[0]
+        self.mapLocation = Landmark.mockLandmarks[0]
         
         addSubscriberToLocations_getsDownloadedLocations()
         addSubscriberToMapLocation_selectsTheFirstLocation()
@@ -48,11 +48,11 @@ class LocationsManager: ObservableObject {
     
     func addSubscriberToMapLocation_selectsTheFirstLocation(){
         downloadDataManager.$downloadedData
-            .map({ (downloadedLocations: [Location]) -> Location in
+            .map({ (downloadedLocations: [Landmark]) -> Landmark in
                 if let firstLocation = downloadedLocations.first {
                     return firstLocation
                 } else {
-                    return Location.mockLocations.first!
+                    return Landmark.mockLandmarks.first!
                 }
             })
             .sink { [weak self] firstLocation in
@@ -65,7 +65,7 @@ class LocationsManager: ObservableObject {
 
     
     ///Updates what the map is showing
-    func updateMapRegion(to location:Location){
+    func updateMapRegion(to location:Landmark){
         withAnimation(.easeInOut){
             mapRegion = MKCoordinateRegion(center: location.coordinates,
                                       span: MKCoordinateSpan(latitudeDelta: 0.007, longitudeDelta: 0.007))
@@ -73,14 +73,14 @@ class LocationsManager: ObservableObject {
     }
 
     ///Shows a specifica location
-    func showLocation(location:Location){
+    func showLocation(location:Landmark){
         withAnimation(.easeInOut){
             mapLocation = location
         }
     }
     
     ///Gets the next location saved
-    func getNextLocation() -> Location{
+    func getNextLocation() -> Landmark{
         
         //If the last location has been reached go back to the beginning
         if mapLocation == locations.last {
@@ -98,7 +98,7 @@ class LocationsManager: ObservableObject {
     }
     
     ///Prompts directions to a specified location
-    static func getDirections(to location:Location) {
+    static func getDirections(to location:Landmark) {
         let latitude = location.coordinates.latitude
         let longitude = location.coordinates.longitude
         

@@ -40,7 +40,7 @@ struct LocationsListView: View {
 }
 
 extension LocationsListView {
-    private func listRowView(location:Location) -> some View{
+    private func listRowView(location:Landmark) -> some View{
         HStack{
             
             Group{
