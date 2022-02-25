@@ -13,14 +13,14 @@ class LocationDetailViewModel: ObservableObject {
     
     @Binding var isSheetShown:Bool
     
-    let location:Location
+    let location:Landmark
     
     let downloadImagesManager = DownloadImagesManager.shared
     
     var cancellables = Set<AnyCancellable>()
 	var images:[UIImage] = []
     
-    init(isSheetShown: Binding<Bool>, location:Location) {
+    init(isSheetShown: Binding<Bool>, location:Landmark) {
         _isSheetShown = isSheetShown
         self.location = location
         

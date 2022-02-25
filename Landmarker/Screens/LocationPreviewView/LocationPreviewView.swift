@@ -13,7 +13,7 @@ struct LocationPreviewView: View {
     @EnvironmentObject var locationManager:LocationsManager
     @StateObject var vm:LocationPreviewViewModel
 
-    internal init(location: Location, is3DShown: Binding<Bool>, isSheetShown:Binding<Bool>) {
+    internal init(location: Landmark, is3DShown: Binding<Bool>, isSheetShown:Binding<Bool>) {
         self._vm = StateObject(wrappedValue: LocationPreviewViewModel(location: location, is3DShown: is3DShown, isSheetShown: isSheetShown))
     }
     
@@ -105,7 +105,7 @@ extension LocationPreviewView {
 struct LocationPreviewView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            LocationPreviewView(location: Location.mockLocations[0], is3DShown: .constant(false), isSheetShown: .constant(false))
+            LocationPreviewView(location: Landmark.mockLandmarks[0], is3DShown: .constant(false), isSheetShown: .constant(false))
         }
     }
 }

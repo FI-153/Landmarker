@@ -11,11 +11,11 @@ import UIKit
 
 class LocationPreviewViewModel:ObservableObject {
     
-    let location:Location
+    let location:Landmark
 
     @Binding var is3DShown:Bool
     @Binding var isSheetShown:Bool
-    init(location:Location, is3DShown:Binding<Bool>, isSheetShown:Binding<Bool>){
+    init(location:Landmark, is3DShown:Binding<Bool>, isSheetShown:Binding<Bool>){
         self.location = location
         self._is3DShown = is3DShown
         self._isSheetShown = isSheetShown

@@ -12,7 +12,7 @@ import Combine
 class DownloadDataManager {
     
     ///Publishes all downloaded locations
-    @Published var downloadedData:[Location] = []
+    @Published var downloadedData:[Landmark] = []
     
     ///Controls the loading view
     @Published var isLoading = true
@@ -40,8 +40,8 @@ class DownloadDataManager {
         URLSession.shared.dataTaskPublisher(for: url)
             .receive(on: DispatchQueue.main)
             .tryMap(handleOutput)
-            .decode(type: [Location].self, decoder: JSONDecoder())
-            .replaceError(with: Location.mockLocations)
+            .decode(type: [Landmark].self, decoder: JSONDecoder())
+            .replaceError(with: Landmark.mockLandmarks)
             .sink { [weak self] returnedLocations in
                 guard let self = self else { return }
                 

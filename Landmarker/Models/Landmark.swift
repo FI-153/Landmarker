@@ -8,9 +8,9 @@
 import Foundation
 import MapKit
 
-struct Location: Identifiable, Equatable, Decodable{
+struct Landmark: Identifiable, Equatable, Decodable{
 
-    static func == (lhs: Location, rhs: Location) -> Bool {
+    static func == (lhs: Landmark, rhs: Landmark) -> Bool {
         lhs.id == rhs.id
     }
     
@@ -18,30 +18,18 @@ struct Location: Identifiable, Equatable, Decodable{
       name+cityName
     }
     
-    let name:String
-    let cityName:String
-    let coordinates:CLLocationCoordinate2D
-    let description:String
-    let imageNames:[String]
-    let thumbnailImage:String
-    let link:String
+    let name:			String
+    let cityName:		String
+    let coordinates:	CLLocationCoordinate2D
+    let description:	String
+    let imageNames:	[String]
+    let thumbnailImage:	String
+    let link:			String
     
-    let optimalDistance:CLLocationDistance
-    let optimalPitch:CGFloat
-    let optimalHeading:CLLocationDirection
+    let optimalDistance:	CLLocationDistance
+    let optimalPitch:		CGFloat
+    let optimalHeading:		CLLocationDirection
     
-    init(name: String, cityName: String, coordinates: CLLocationCoordinate2D, description: String, imageNames: [String], thumbnailImage:String, link: String, optimalDistance: CLLocationDistance, optimalPitch: CGFloat, optimalHeading: CLLocationDirection) {
-        self.name = name
-        self.cityName = cityName
-        self.coordinates = coordinates
-        self.description = description
-        self.imageNames = imageNames
-        self.thumbnailImage = thumbnailImage
-        self.link = link
-        self.optimalDistance = optimalDistance
-        self.optimalPitch = optimalPitch
-        self.optimalHeading = optimalHeading
-    }
     
     private enum CodingKeys: String, CodingKey {
         case name, cityName, latitude, longitude
@@ -68,10 +56,23 @@ struct Location: Identifiable, Equatable, Decodable{
         self.optimalHeading = try! container.decode(CLLocationDirection.self, forKey: .optimalHeading)
         
     }
+	
+	init(name: String, cityName: String, coordinates: CLLocationCoordinate2D, description: String, imageNames: [String], thumbnailImage:String, link: String, optimalDistance: CLLocationDistance, optimalPitch: CGFloat, optimalHeading: CLLocationDirection) {
+		self.name = name
+		self.cityName = cityName
+		self.coordinates = coordinates
+		self.description = description
+		self.imageNames = imageNames
+		self.thumbnailImage = thumbnailImage
+		self.link = link
+		self.optimalDistance = optimalDistance
+		self.optimalPitch = optimalPitch
+		self.optimalHeading = optimalHeading
+	}
     
     ///Mock data to be used during development
-    static let mockLocations: [Location] = [
-        Location(
+    static let mockLandmarks: [Landmark] = [
+        Landmark(
             name: "Mock",
             cityName: "mockCity",
             coordinates: CLLocationCoordinate2D(latitude: 41.8902, longitude: 12.4922),

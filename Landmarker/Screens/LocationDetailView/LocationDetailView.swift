@@ -13,7 +13,7 @@ struct LocationDetailView: View {
     
     @StateObject private var vm:LocationDetailViewModel
     
-    init(isSheetShown:Binding<Bool>, location:Location){
+    init(isSheetShown:Binding<Bool>, location:Landmark){
         _vm = StateObject(wrappedValue: LocationDetailViewModel(isSheetShown: isSheetShown, location: location))
     }
 
@@ -136,6 +136,6 @@ extension LocationDetailView {
 
 struct LocationDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationDetailView(isSheetShown: .constant(true), location: Location.mockLocations[0])
+        LocationDetailView(isSheetShown: .constant(true), location: Landmark.mockLandmarks[0])
     }
 }
