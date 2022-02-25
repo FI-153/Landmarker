@@ -47,7 +47,7 @@ extension LocationDetailView {
         TabView{
             
             if !vm.images.isEmpty{
-                ForEach(Array(vm.images.values), id: \.self){ image in
+				ForEach(vm.images, id: \.self){ image in
                     
                     Image(uiImage: image)
                         .resizable()
