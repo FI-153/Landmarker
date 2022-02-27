@@ -47,14 +47,7 @@ extension LocationDetailView {
         TabView{
             
             if !vm.images.isEmpty{
-				ForEach(vm.images, id: \.self){ image in
-                    
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? nil : UIScreen.main.bounds.width)
-                }
-                
+				showImages
             } else {
                 ProgressView()
             }
@@ -63,6 +56,16 @@ extension LocationDetailView {
         .tabViewStyle(PageTabViewStyle())
 
     }
+	
+	private var showImages: some View{
+		ForEach(vm.images, id: \.self){ image in
+			
+			Image(uiImage: image)
+				.resizable()
+				.scaledToFill()
+				.frame(width: UIDevice.current.userInterfaceIdiom == .pad ? nil : UIScreen.main.bounds.width)
+		}
+	}
     
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 8){
@@ -82,53 +85,64 @@ extension LocationDetailView {
             Text(vm.location.description)
                 .font(.headline)
                 .foregroundColor(.secondary)
-        }
-    }
-    
-    private var mapSection: some View {
-        Map(coordinateRegion: .constant( MKCoordinateRegion(center: vm.location.coordinates,
-                                                        span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-                                                        )
-                                       ),
-            annotationItems: [vm.location]) { location in
-            MapAnnotation(coordinate: location.coordinates) {
-                LocationMapAnnotationView()
-            }
-        }
-            .allowsHitTesting(false)
-            .aspectRatio(1, contentMode: .fit)
-            .cornerRadius(30)
-    }
-    
-    private var buttonsSection: some View{
-        VStack(){
+		}
+	}
+	
+	private var mapSection: some View {
+		Map(coordinateRegion: .constant(
+			MKCoordinateRegion(
+				center: vm.location.coordinates,
+				span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+			)
+		),
+			annotationItems: [vm.location]) { location in
+			MapAnnotation(coordinate: location.coordinates) {
+				LocationMapAnnotationView()
+			}
+		}
+			.allowsHitTesting(false)
+			.aspectRatio(1, contentMode: .fit)
+			.cornerRadius(30)
+	}
+	
+	private var buttonsSection: some View{
+		VStack(){
+			
+			closeButton
+				.padding(.bottom, 10)
             
-            //Close
-            Button {
-                vm.isSheetShown.toggle()
-            } label: {
-                ButtonView(imageName: "xmark", isSfSymbol: true)
-            }
-            .padding(.bottom, 10)
-            
-            //Wikipedia - links to the page
             if let url = URL(string: vm.location.link) {
-                Link(destination: url) {
-                    ButtonView(imageName: "wikipedia-logo", isSfSymbol: false)
-                }
-                .padding(.bottom, 10)
+				showWikipediaButton(for: url)
+					.padding(.bottom, 10)
             }
             
-            //Directions - plot directions
-            Button {
-                LocationsManager.getDirections(to: vm.location)
-            } label: {
-                ButtonView(imageName: "location.fill", isSfSymbol: true)
-            }
+            directionButton
             
         }
         .padding()
     }
+	
+	private var closeButton: some View {
+		Button {
+			vm.isSheetShown.toggle()
+		} label: {
+			ButtonView(imageName: "xmark", isSfSymbol: true)
+		}
+	}
+	
+	private func showWikipediaButton(for url:URL) -> some View{
+		Link(destination: url) {
+			ButtonView(imageName: "wikipedia-logo", isSfSymbol: false)
+		}
+	}
+	
+	private var directionButton: some View{
+		Button {
+			LocationsManager.getDirections(to: vm.location)
+		} label: {
+			ButtonView(imageName: "location.fill", isSfSymbol: true)
+		}
+	}
     
 }
 

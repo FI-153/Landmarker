@@ -21,7 +21,11 @@ struct LocationPreviewView: View {
         HStack(alignment: .bottom, spacing: 0.0) {
             VStack(alignment: .leading, spacing: 16.0) {
                 imageSection
+					.padding(6)
+					.cornerRadius(10)
+				
                 titleSection
+					.frame(maxWidth: .infinity, alignment: .leading)
             }
             
             VStack(spacing: 8.0){
@@ -58,8 +62,6 @@ extension LocationPreviewView {
             .frame(width: 100, height: 100)
             .cornerRadius(10)
         }
-        .padding(6)
-        .cornerRadius(10)
         
     }
     
@@ -73,7 +75,6 @@ extension LocationPreviewView {
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
     
     private var learnMoreButton: some View {
@@ -99,7 +100,6 @@ extension LocationPreviewView {
     }
 
 }
-
 
 
 struct LocationPreviewView_Previews: PreviewProvider {

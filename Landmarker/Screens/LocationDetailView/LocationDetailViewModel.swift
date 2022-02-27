@@ -21,15 +21,16 @@ class LocationDetailViewModel: ObservableObject {
 	var images:[UIImage] = []
     
     init(isSheetShown: Binding<Bool>, location:Landmark) {
-        _isSheetShown = isSheetShown
+		self._isSheetShown = isSheetShown
         self.location = location
         
         addSubscriberToImages()
     }
 	
     func addSubscriberToImages(){
-        downloadImagesManager.$downloadedImages.sink { downloadedImages in
-            
+        downloadImagesManager.$downloadedImages.sink { [weak self] downloadedImages in
+			guard let self = self else { return }
+			
             for downloadedImage in downloadedImages {
 
 				if downloadedImage.key.contains(self.location.id) {
