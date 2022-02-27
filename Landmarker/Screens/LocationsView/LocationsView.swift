@@ -133,7 +133,7 @@ extension LocationsView{
             vm.toggle3D()
         } label: {
             Image("")
-				.sheetButtonImage(isSFSymbol: true)
+				.sheetButtonImageModifiers(isSFSymbol: true)
 				.overlay{
 					Group{
 						if vm.is3DShown {
@@ -159,7 +159,7 @@ extension LocationsView{
             vm.centerImage.toggle()
         } label: {
             Image("")
-                .sheetButtonImage(isSFSymbol: true)
+                .sheetButtonImageModifiers(isSFSymbol: true)
                 .overlay{
                     Image(systemName: "location.north.line.fill")
                         .foregroundColor(.primary)
