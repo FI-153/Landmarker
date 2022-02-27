@@ -15,18 +15,18 @@ struct ButtonView: View {
     var body: some View {
         if isSfSymbol {
             Image(systemName: imageName)
-                .sheetButtonImage(isSFSymbol: true)
+                .sheetButtonImageModifiers(isSFSymbol: true)
             
         } else {
             Image(imageName)
-                .sheetButtonImage(isSFSymbol: false)
+                .sheetButtonImageModifiers(isSFSymbol: false)
         }
 
     }
 }
 
 extension Image {
-    func sheetButtonImage(isSFSymbol:Bool) -> some View {
+    func sheetButtonImageModifiers(isSFSymbol:Bool) -> some View {
         self
             .resizable()
             .scaledToFit()
