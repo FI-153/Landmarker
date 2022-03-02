@@ -30,38 +30,50 @@ class DownloadDataManager {
     private var cancellables = Set<AnyCancellable>()
     
     ///Downloads the landmarks from  API
-    private func getLandmarksData() throws{
-        guard let url = URL(string: "https://raw.githubusercontent.com/FI-153/LandmarkerBackend/f32c6e8d5115b8759f0a93aed1d044c685b20bd4/JSON/landmarkData.json") else {
-            throw URLError(.badURL)
-        }
-        
-        let downloadImagesManager = DownloadImagesManager.shared
-        
-        URLSession.shared.dataTaskPublisher(for: url)
-            .receive(on: DispatchQueue.main)
-            .tryMap(handleOutput)
-            .decode(type: [Landmark].self, decoder: JSONDecoder())
-            .replaceError(with: Landmark.mockLandmarks)
-            .sink { [weak self] returnedLocations in
-                guard let self = self else { return }
-                
-                //Publish downloaded data
-                self.downloadedData = returnedLocations
-                
-                //Once the data has been downloaded procede with downloading thumbnails
-                downloadImagesManager.downloadThumbails(for: returnedLocations)
-                
-                //Dismiss the loading view
-                self.isLoading = false
-
-                //Download the images describing the landmarks
-                downloadImagesManager.downloadImages(for: returnedLocations)
-                
-            }
-            .store(in: &cancellables)
-    }
-    
-    ///Handles the output from the downloader
+	private func getLandmarksData() throws{
+		
+		do {
+			
+			URLSession.shared.dataTaskPublisher(for: try buildUrl())
+				.receive(on: DispatchQueue.main)
+				.tryMap(handleOutput)
+				.decode(type: [Landmark].self, decoder: JSONDecoder())
+				.replaceError(with: Landmark.mockLandmarks)
+				.sink { [weak self] returnedLocations in
+					
+					guard let self = self else { return }
+					
+					self.downloadImages(for: returnedLocations)
+					self.setDownloadedData(to: returnedLocations)
+					self.dismissLoadingView()
+					
+				}
+				.store(in: &cancellables)
+			
+		} catch let error {
+			print(error)
+		}
+	}
+	
+	private func buildUrl() throws -> URL {
+		guard let url = URL(string: "https://raw.githubusercontent.com/FI-153/LandmarkerBackend/f32c6e8d5115b8759f0a93aed1d044c685b20bd4/JSON/landmarkData.json") else {
+			throw URLError(.badURL)
+		}
+		
+		return url
+	}
+	
+	private func setDownloadedData(to locations: [Landmark]) {
+		self.downloadedData = locations
+	}
+	
+	private func downloadImages(for locations: [Landmark]) {
+		let downloadImagesManager = DownloadImagesManager.shared
+		
+		downloadImagesManager.downloadThumbails(for: locations)
+		downloadImagesManager.downloadImages(for: locations)
+	}
+	
     private func handleOutput(output:URLSession.DataTaskPublisher.Output) throws -> Data {
         guard
             let response = output.response as? HTTPURLResponse,
@@ -70,5 +82,9 @@ class DownloadDataManager {
             }
         return output.data
     }
-    
+	
+	private func dismissLoadingView() {
+		isLoading = false
+	}
+
 }

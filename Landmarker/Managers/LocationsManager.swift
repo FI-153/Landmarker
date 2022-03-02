@@ -27,8 +27,7 @@ class LocationsManager: ObservableObject {
     init(){
         self.locations = []
         
-        //Set the map location to a temporary location -> will be updated when data is downloaded
-        self.mapLocation = Landmark.mockLandmarks[0]
+        self.mapLocation = Landmark.getFirstMockLocation()
         
         addSubscriberToLocations_getsDownloadedLocations()
         addSubscriberToMapLocation_selectsTheFirstLocation()
@@ -37,50 +36,60 @@ class LocationsManager: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let downloadDataManager = DownloadDataManager.shared
     
-    func addSubscriberToLocations_getsDownloadedLocations(){
+	private func addSubscriberToLocations_getsDownloadedLocations(){
         downloadDataManager.$downloadedData
             .sink { [weak self] downloadedData in
                 guard let self = self else { return }
-                self.locations = downloadedData
+				
+                self.setLocations(to: downloadedData)
             }
             .store(in: &cancellables)
     }
-    
-    func addSubscriberToMapLocation_selectsTheFirstLocation(){
+	
+	private func setLocations(to locations:[Landmark]) {
+		self.locations = locations
+	}
+	
+	private func addSubscriberToMapLocation_selectsTheFirstLocation(){
         downloadDataManager.$downloadedData
             .map({ (downloadedLocations: [Landmark]) -> Landmark in
                 if let firstLocation = downloadedLocations.first {
                     return firstLocation
                 } else {
-                    return Landmark.mockLandmarks.first!
+                    return Landmark.getFirstMockLocation()
                 }
             })
             .sink { [weak self] firstLocation in
                 
                 guard let self = self else { return }
-                self.mapLocation = firstLocation
+                self.setMapLocation(to: firstLocation)
             }
             .store(in: &cancellables)
     }
 
-    
+	private func setMapLocation(to location:Landmark) {
+		self.mapLocation = location
+	}
+
     ///Updates what the map is showing
-    func updateMapRegion(to location:Landmark){
+	private func updateMapRegion(to location:Landmark){
         withAnimation(.easeInOut){
-            mapRegion = MKCoordinateRegion(center: location.coordinates,
-                                      span: MKCoordinateSpan(latitudeDelta: 0.007, longitudeDelta: 0.007))
+            mapRegion = MKCoordinateRegion(
+				center: location.coordinates,
+				span: MKCoordinateSpan(latitudeDelta: 0.007, longitudeDelta: 0.007)
+			)
         }
     }
 
     ///Shows a specifica location
-    func showLocation(location:Landmark){
+    func showLocation(_ location:Landmark){
         withAnimation(.easeInOut){
             mapLocation = location
         }
     }
     
     ///Gets the next location saved
-    func getNextLocation() -> Landmark{
+	private func getNextLocation() -> Landmark{
         
         //If the last location has been reached go back to the beginning
         if mapLocation == locations.last {
@@ -94,7 +103,7 @@ class LocationsManager: ObservableObject {
     
     ///Shown the next location
     func showNextLocation(){
-        showLocation(location: getNextLocation())
+        showLocation(getNextLocation())
     }
     
     ///Prompts directions to a specified location
@@ -104,10 +113,13 @@ class LocationsManager: ObservableObject {
         
         if let url = URL(string: "maps://?daddr=\(latitude),\(longitude)&dirflg=w") {
             if UIApplication.shared.canOpenURL(url){
-                //Opens the Maps app with directions to the desired landmark from the current position
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                openMapsApp(to: url)
             }
         }
     }
+	
+	static private func openMapsApp(to location: URL){
+		UIApplication.shared.open(location, options: [:], completionHandler: nil)
+	}
 
 }

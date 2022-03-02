@@ -89,6 +89,9 @@ struct Landmark: Identifiable, Equatable, Decodable{
             optimalHeading: 0)
     ]
 
+	static func getFirstMockLocation() -> Landmark {
+		Landmark.mockLandmarks.first!
+	}
     
     
 }
