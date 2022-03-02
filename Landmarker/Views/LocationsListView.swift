@@ -35,7 +35,7 @@ extension LocationsListView {
 	
 	private func showLocationButton(for location: Landmark) -> some View {
 		Button {
-			locationManager.showLocation(location: location)
+			locationManager.showLocation(location)
 			
 			withAnimation(.spring()) {
 				isLocationListShown = false
