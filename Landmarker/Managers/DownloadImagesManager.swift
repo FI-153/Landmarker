@@ -64,32 +64,34 @@ class DownloadImagesManager:ObservableObject {
 	private func appendDownloadedImages(for key: String, value: UIImage) {
 		downloadedImages[key] = value
 	}
-    
-    ///Publishes all downloaded thumbnails identified by the Location's id
-    @Published var downloadedThumbnails:[String: UIImage] = [:]
-    func downloadThumbails(for locations: [Landmark]){
-        for location in locations {
-            guard let url = URL(string: location.thumbnailImage) else {
-                return
-            }
-            
-            URLSession.shared.dataTaskPublisher(for: url)
-                .map { UIImage(data: $0.data) }
-                .receive(on: DispatchQueue.main)
-                .sink { _ in
-                } receiveValue: { [weak self] downloadedImage in
-                    guard let self = self else { return }
-                    
-                    if let validDownloadedImage = downloadedImage {
-                        self.downloadedThumbnails[location.id + UUID().uuidString] = validDownloadedImage
-                        
-                        //Add image to cache
-                        //self.imageCacheManager.addImage(named: location.id as NSString, image: validDownloadedImage)
-
-                    }
-                }
-                .store(in: &cancellables)
-        }
-    }
-    
+	
+	///Publishes all downloaded thumbnails identified by the Location's id
+	@Published var downloadedThumbnails:[String: UIImage] = [:]
+	func downloadThumbails(for locations: [Landmark]){
+		
+		do {
+			for location in locations {
+				
+				URLSession.shared.dataTaskPublisher(for: try buildUrl(for: location.thumbnailImage))
+					.map { UIImage(data: $0.data) }
+					.receive(on: DispatchQueue.main)
+					.sink { _ in
+					} receiveValue: { [weak self] downloadedImage in
+						guard let self = self else { return }
+						
+						if let validDownloadedImage = downloadedImage {
+							self.appenddownloadedThumbnails(for: self.generateKey(for: location), value: validDownloadedImage)
+						}
+					}
+					.store(in: &cancellables)
+			}
+		}catch let error {
+			print(error)
+		}
+	}
+	
+	private func appenddownloadedThumbnails(for key: String, value: UIImage) {
+		downloadedThumbnails[key] = value
+	}
+	
 }
