@@ -21,7 +21,7 @@ class DownloadDataManager {
     static let shared = DownloadDataManager()
     private init(){
 		
-		Task{
+		Task(priority: .high){
 			do {
 				try await getLandmarksData()
 			}catch let error {
@@ -72,8 +72,8 @@ class DownloadDataManager {
 	
 	private func downloadImages(for locations: [Landmark]) {
 		
-			let downloadImagesManager = DownloadImagesManager.shared
-			
+		let downloadImagesManager = DownloadImagesManager.shared
+		
 		Task(priority: .high) {
 			await downloadImagesManager.downloadThumbails(for: locations)
 		}
