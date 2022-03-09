@@ -19,7 +19,7 @@ class DownloadImagesManager:ObservableObject {
         
     ///Publishes all downloaded images identified by the Location's id
     @Published var downloadedImages:[String: UIImage] = [:]
-	func downloadImages(for locations: [Landmark]){
+	func downloadImages(for locations: [Landmark]) async {
 		
 		do {
 			
@@ -67,7 +67,7 @@ class DownloadImagesManager:ObservableObject {
 	
 	///Publishes all downloaded thumbnails identified by the Location's id
 	@Published var downloadedThumbnails:[String: UIImage] = [:]
-	func downloadThumbails(for locations: [Landmark]){
+	func downloadThumbails(for locations: [Landmark]) async {
 		
 		do {
 			for location in locations {

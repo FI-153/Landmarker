@@ -71,16 +71,22 @@ class DownloadDataManager {
 	}
 	
 	private func downloadImages(for locations: [Landmark]) {
-		let downloadImagesManager = DownloadImagesManager.shared
 		
-		downloadImagesManager.downloadThumbails(for: locations)
-		downloadImagesManager.downloadImages(for: locations)
+			let downloadImagesManager = DownloadImagesManager.shared
+			
+		Task(priority: .high) {
+			await downloadImagesManager.downloadThumbails(for: locations)
+		}
+		
+		Task(priority: .low){
+			await downloadImagesManager.downloadImages(for: locations)
+		}
 	}
 	
-    private func handleOutput(output:URLSession.DataTaskPublisher.Output) throws -> Data {
-        guard
-            let response = output.response as? HTTPURLResponse,
-            response.statusCode >= 200 && response.statusCode < 300 else {
+	private func handleOutput(output:URLSession.DataTaskPublisher.Output) throws -> Data {
+		guard
+			let response = output.response as? HTTPURLResponse,
+			response.statusCode >= 200 && response.statusCode < 300 else {
                 throw URLError(.badServerResponse)
             }
         return output.data
