@@ -20,17 +20,20 @@ class DownloadDataManager {
     ///Singleton instance of the class
     static let shared = DownloadDataManager()
     private init(){
-        do {
-            try getLandmarksData()
-        }catch let error {
-            print(error)
-        }
-    }
-    
+		
+		Task{
+			do {
+				try await getLandmarksData()
+			}catch let error {
+				print(error)
+			}
+		}
+	}
+	
     private var cancellables = Set<AnyCancellable>()
     
     ///Downloads the landmarks from  API
-	private func getLandmarksData() throws{
+	private func getLandmarksData() async throws{
 		
 		do {
 			
