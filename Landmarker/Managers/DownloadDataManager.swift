@@ -20,17 +20,20 @@ class DownloadDataManager {
     ///Singleton instance of the class
     static let shared = DownloadDataManager()
     private init(){
-        do {
-            try getLandmarksData()
-        }catch let error {
-            print(error)
-        }
-    }
-    
+		
+		Task(priority: .high){
+			do {
+				try await getLandmarksData()
+			}catch let error {
+				print(error)
+			}
+		}
+	}
+	
     private var cancellables = Set<AnyCancellable>()
     
     ///Downloads the landmarks from  API
-	private func getLandmarksData() throws{
+	private func getLandmarksData() async throws{
 		
 		do {
 			
@@ -68,16 +71,22 @@ class DownloadDataManager {
 	}
 	
 	private func downloadImages(for locations: [Landmark]) {
+		
 		let downloadImagesManager = DownloadImagesManager.shared
 		
-		downloadImagesManager.downloadThumbails(for: locations)
-		downloadImagesManager.downloadImages(for: locations)
+		Task(priority: .high) {
+			await downloadImagesManager.downloadThumbails(for: locations)
+		}
+		
+		Task(priority: .low){
+			await downloadImagesManager.downloadImages(for: locations)
+		}
 	}
 	
-    private func handleOutput(output:URLSession.DataTaskPublisher.Output) throws -> Data {
-        guard
-            let response = output.response as? HTTPURLResponse,
-            response.statusCode >= 200 && response.statusCode < 300 else {
+	private func handleOutput(output:URLSession.DataTaskPublisher.Output) throws -> Data {
+		guard
+			let response = output.response as? HTTPURLResponse,
+			response.statusCode >= 200 && response.statusCode < 300 else {
                 throw URLError(.badServerResponse)
             }
         return output.data
