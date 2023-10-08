@@ -22,7 +22,7 @@ struct Landmark: Identifiable, Equatable, Decodable{
     let cityName:		String
     let coordinates:	CLLocationCoordinate2D
     let description:	String
-    let imageNames:	[String]
+    let imageNames:	    [String]
     let thumbnailImage:	String
     let link:			String
     
@@ -38,22 +38,22 @@ struct Landmark: Identifiable, Equatable, Decodable{
     }
     
     init(from decoder: Decoder) throws {
-        let container = try! decoder.container(keyedBy: CodingKeys.self)
+        let container =     try! decoder.container(keyedBy: CodingKeys.self)
         
-        self.name = try! container.decode(String.self, forKey: .name)
-        self.cityName = try! container.decode(String.self, forKey: .cityName)
+        self.name =         try! container.decode(String.self, forKey: .name)
+        self.cityName =     try! container.decode(String.self, forKey: .cityName)
         
-        let latitude = try! container.decode(Double.self, forKey: .latitude)
-        let longitude = try! container.decode(Double.self, forKey: .longitude)
-        self.coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let latitude =      try! container.decode(Double.self, forKey: .latitude)
+        let longitude =     try! container.decode(Double.self, forKey: .longitude)
+        self.coordinates =  CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         
-        self.description = try! container.decode(String.self, forKey: .description)
-        self.imageNames = try! container.decode([String].self, forKey: .imageNames)
-        self.thumbnailImage = try! container.decode(String.self, forKey: .thumbnailImage)
-        self.link = try! container.decode(String.self, forKey: .link)
-        self.optimalDistance = try! container.decode(CLLocationDistance.self, forKey: .optimalDistance)
-        self.optimalPitch = try! container.decode(CGFloat.self, forKey: .optimalPitch)
-        self.optimalHeading = try! container.decode(CLLocationDirection.self, forKey: .optimalHeading)
+        self.description =      try! container.decode(String.self, forKey: .description)
+        self.imageNames =       try! container.decode([String].self, forKey: .imageNames)
+        self.thumbnailImage =   try! container.decode(String.self, forKey: .thumbnailImage)
+        self.link =             try! container.decode(String.self, forKey: .link)
+        self.optimalDistance =  try! container.decode(CLLocationDistance.self, forKey: .optimalDistance)
+        self.optimalPitch =     try! container.decode(CGFloat.self, forKey: .optimalPitch)
+        self.optimalHeading =   try! container.decode(CLLocationDirection.self, forKey: .optimalHeading)
         
     }
 	
@@ -88,10 +88,8 @@ struct Landmark: Identifiable, Equatable, Decodable{
             optimalPitch: 80,
             optimalHeading: 0)
     ]
-
 	static func getFirstMockLocation() -> Landmark {
 		Landmark.mockLandmarks.first!
 	}
-    
     
 }
