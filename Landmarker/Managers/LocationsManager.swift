@@ -34,7 +34,7 @@ class LocationsManager: ObservableObject {
     }
     
     private var cancellables = Set<AnyCancellable>()
-    private let downloadDataManager = DownloadDataManager.shared
+    private let downloadDataManager = DownloadDataManager.getShared()
     
 	private func addSubscriberToLocations_getsDownloadedLocations(){
         downloadDataManager.$downloadedData

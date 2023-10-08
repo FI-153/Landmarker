@@ -12,7 +12,7 @@ struct MapView: UIViewRepresentable {
     let location:Landmark
     let is3DEnabled:Bool
     let centerImage:Bool
-    let locationsDataService = DownloadDataManager.shared
+    let locationsDataService = DownloadDataManager.getShared()
     
     var mapView = MKMapView(frame: .zero)
         

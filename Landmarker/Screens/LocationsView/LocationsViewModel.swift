@@ -17,7 +17,7 @@ class LocationsViewModel: ObservableObject {
     @Published var centerImage = false
 	
 	let maxWidthForIpad:CGFloat = 700
-	let locationsDataService = DownloadDataManager.shared
+	let locationsDataService = DownloadDataManager.getShared()
     
     var arrowRotationAmount:CGFloat {
         isLocationListShown ? -180 : 0
