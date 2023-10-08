@@ -25,7 +25,7 @@ class LocationPreviewViewModel:ObservableObject {
     }
     
     @Published var thumbnailImage:UIImage?
-    let downloadImageManager = DownloadImagesManager.shared
+    let downloadImageManager = DownloadImagesManager.getShared()
     var cancellables = Set<AnyCancellable>()
 
     func addSubscriberToPreviewImage(){

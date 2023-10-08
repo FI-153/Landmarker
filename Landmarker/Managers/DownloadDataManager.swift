@@ -79,7 +79,7 @@ class DownloadDataManager {
     /// - Parameter locations: Landmarks for which to download images
 	private func downloadImages(for locations: [Landmark]) {
 		
-		let downloadImagesManager = DownloadImagesManager.shared
+		let downloadImagesManager = DownloadImagesManager.getShared()
 		
 		Task(priority: .high) {
 			await downloadImagesManager.downloadThumbails(for: locations)

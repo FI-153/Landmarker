@@ -15,7 +15,7 @@ class LocationDetailViewModel: ObservableObject {
     
     let location:Landmark
     
-    let downloadImagesManager = DownloadImagesManager.shared
+    let downloadImagesManager = DownloadImagesManager.getShared()
     
     var cancellables = Set<AnyCancellable>()
 	var images:[UIImage] = []

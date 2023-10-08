@@ -101,7 +101,7 @@ extension LocationsListView {
 }
 
 class LocationListViewModel:ObservableObject {
-    let downloadImagesManager = DownloadImagesManager.shared
+    let downloadImagesManager = DownloadImagesManager.getShared()
     var cancellables = Set<AnyCancellable>()
     
     @Published var thumbnails: [String:UIImage] = [:]

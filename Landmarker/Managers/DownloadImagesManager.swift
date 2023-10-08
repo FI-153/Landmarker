@@ -12,22 +12,27 @@ import UIKit
 class DownloadImagesManager:ObservableObject {
     
     ///Singleton instance of the DownloadImagesManager
-    static let shared = DownloadImagesManager()
+    private static let shared = DownloadImagesManager()
+    /// Gets the shared instance of DownloadImagesManager
+    static func getShared() -> DownloadImagesManager {
+        return shared;
+    }
     private init(){}
     
     var cancellables = Set<AnyCancellable>()
         
-    ///Publishes all downloaded images identified by the Location's id
+    ///All the downloaded images identified by the Location's id
     @Published var downloadedImages:[String: UIImage] = [:]
+    
+    /// Downloads all the images for the given Landmarks, except for the thumbnails
+    /// - Parameter locations: Array of Landmarks for which to download the images
 	func downloadImages(for locations: [Landmark]) async {
-		
 		do {
-			
 			for location in locations {
-				
 				try location.imageNames.forEach {
-					
-					URLSession.shared.dataTaskPublisher(for: try buildUrl(for: $0))
+					URLSession
+                        .shared
+                        .dataTaskPublisher(for: try buildUrl(for: $0))
 						.map { UIImage(data: $0.data) }
 						.receive(on: DispatchQueue.main)
 						.sink { _ in
@@ -39,17 +44,17 @@ class DownloadImagesManager:ObservableObject {
 							}
 						}
 						.store(in: &cancellables)
-					
 				}
-				
 			}
-			
 		} catch let error {
 			print(error)
 		}
-		
 	}
 	
+    
+    /// Builds the URL based on the URL string in the downlaoded object
+    /// - Parameter locationImageUrl: URL string
+    /// - Returns: The URL when it's possible to build it, otherwise it throws an error
 	private func buildUrl(for locationImageUrl: String) throws -> URL {
 		guard let url = URL(string: locationImageUrl) else {
 			throw URLError(.badURL)
@@ -57,22 +62,34 @@ class DownloadImagesManager:ObservableObject {
 		return url
 	}
 	
+    
+    /// Generates a unique key for each of the downlaoded images for a given landmark.
+    /// The image's id is the same as the landmark + a new UUID
+    /// - Parameter location: Landmark for which to generate a key
+    /// - Returns: A unique key
 	private func generateKey(for location: Landmark) -> String {
 		location.id + UUID().uuidString
 	}
-	
+    
+    /// Adds the downloaded image to the array of downloadaded images
+    /// - Parameters:
+    ///   - key: Image's id
+    ///   - value: Image as UIImage
 	private func appendDownloadedImages(for key: String, value: UIImage) {
 		downloadedImages[key] = value
 	}
 	
-	///Publishes all downloaded thumbnails identified by the Location's id
+	///All downloaded thumbnails identified by the Location's id
 	@Published var downloadedThumbnails:[String: UIImage] = [:]
+    
+    /// Downloads all the thumbnails for a set of Landmarks
+    /// - Parameter locations: Araray of all the Landmarks
 	func downloadThumbails(for locations: [Landmark]) async {
-		
 		do {
 			for location in locations {
-				
-				URLSession.shared.dataTaskPublisher(for: try buildUrl(for: location.thumbnailImage))
+				URLSession
+                    .shared
+                    .dataTaskPublisher(for: try buildUrl(for: location.thumbnailImage))
 					.map { UIImage(data: $0.data) }
 					.receive(on: DispatchQueue.main)
 					.sink { _ in
@@ -90,6 +107,10 @@ class DownloadImagesManager:ObservableObject {
 		}
 	}
 	
+    /// Adds the downloaded thumbnails to the array of downloadaded thumbnails
+    /// - Parameters:
+    ///   - key: Image's id
+    ///   - value: Image as UIImage
 	private func appenddownloadedThumbnails(for key: String, value: UIImage) {
 		downloadedThumbnails[key] = value
 	}
