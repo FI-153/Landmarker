@@ -14,7 +14,7 @@ class LocationsManager: ObservableObject {
     ///All stored locations
     @Published var locations:[Landmark]
 
-    ///Current location on the map, when set the map shown is changed accordingly
+    ///Current location on the map. When set, the map is changed to center on this Landmark
     @Published var mapLocation:Landmark {
         didSet{
             updateMapRegion(to: mapLocation)
@@ -37,7 +37,8 @@ class LocationsManager: ObservableObject {
     private let downloadDataManager = DownloadDataManager.getShared()
     
 	private func addSubscriberToLocations_getsDownloadedLocations(){
-        downloadDataManager.$downloadedData
+        downloadDataManager
+            .$downloadedData
             .sink { [weak self] downloadedData in
                 guard let self = self else { return }
 				
@@ -51,7 +52,8 @@ class LocationsManager: ObservableObject {
 	}
 	
 	private func addSubscriberToMapLocation_selectsTheFirstLocation(){
-        downloadDataManager.$downloadedData
+        downloadDataManager
+            .$downloadedData
             .map({ (downloadedLocations: [Landmark]) -> Landmark in
                 if let firstLocation = downloadedLocations.first {
                     return firstLocation
@@ -90,6 +92,7 @@ class LocationsManager: ObservableObject {
     
     ///Gets the next location saved
 	private func getNextLocation() -> Landmark{
+        // TODO set as circular array
         
         //If the last location has been reached go back to the beginning
         if mapLocation == locations.last {
