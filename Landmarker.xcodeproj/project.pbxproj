@@ -24,6 +24,7 @@
 		A1C3BAB0277B3B0D00CB58E9 /* LocationDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C3BAAF277B3B0D00CB58E9 /* LocationDetailViewModel.swift */; };
 		A1EAE46D277A1EA300C6F085 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EAE46C277A1EA300C6F085 /* LocationDetailView.swift */; };
 		A1EAE46F277A23C000C6F085 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EAE46E277A23C000C6F085 /* ButtonView.swift */; };
+		C0E69B7E2EBB93B0009214FF /* ImageLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E69B7D2EBB93AA009214FF /* ImageLoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		A1C3BAAF277B3B0D00CB58E9 /* LocationDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewModel.swift; sourceTree = "<group>"; };
 		A1EAE46C277A1EA300C6F085 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		A1EAE46E277A23C000C6F085 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
+		C0E69B7D2EBB93AA009214FF /* ImageLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 		A12879B02777A57100584FEC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C0E69B7C2EBB9389009214FF /* Components */,
 				A12879BB2777B05800584FEC /* LocationsListView.swift */,
 				A196EB1B2779E3B900198C7C /* LocationMapAnnotationView.swift */,
 				A18951842778D17A00BC81A8 /* Buttons */,
@@ -178,6 +181,14 @@
 				A1C3BAAF277B3B0D00CB58E9 /* LocationDetailViewModel.swift */,
 			);
 			path = LocationDetailView;
+			sourceTree = "<group>";
+		};
+		C0E69B7C2EBB9389009214FF /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C0E69B7D2EBB93AA009214FF /* ImageLoadingView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +274,7 @@
 				A192F4AE277A4213001516FF /* LocationsManager.swift in Sources */,
 				A128799F2777A46300584FEC /* LandmarkerApp.swift in Sources */,
 				A11467EA278A267200DA615D /* DownloadImagesManager.swift in Sources */,
+				C0E69B7E2EBB93B0009214FF /* ImageLoadingView.swift in Sources */,
 				A1EAE46F277A23C000C6F085 /* ButtonView.swift in Sources */,
 				A196EB1C2779E3B900198C7C /* LocationMapAnnotationView.swift in Sources */,
 			);

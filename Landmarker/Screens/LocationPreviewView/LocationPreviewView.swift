@@ -55,7 +55,7 @@ extension LocationPreviewView {
                     Image(uiImage: image)
                         .resizable()
                 } else {
-                    ProgressView()
+                    ImageLoadingView()
                 }
             }
             .scaledToFill()

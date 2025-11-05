@@ -17,17 +17,12 @@ struct LocationsListView: View {
     var body: some View {
         
         ScrollView(showsIndicators: false){
-			
             ForEach(locationManager.locations){ location in
 				showLocationButton(for: location)
 					.padding(.vertical, 10)
-
             }
-			
             .padding()
-            
         }
-
     }
 }
 
@@ -58,7 +53,7 @@ extension LocationsListView {
                     Image(uiImage: image.value)
                         .resizable()
                 } else {
-                    ProgressView()
+                    ImageLoadingView()
                 }
                 
             }

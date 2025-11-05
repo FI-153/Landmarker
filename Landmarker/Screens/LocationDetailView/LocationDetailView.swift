@@ -49,7 +49,7 @@ extension LocationDetailView {
             if !vm.images.isEmpty{
 				showImages
             } else {
-                ProgressView()
+                ImageLoadingView()
             }
         }
         .frame(height: 500)
